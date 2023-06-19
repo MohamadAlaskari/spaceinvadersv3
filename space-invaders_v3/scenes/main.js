@@ -1,5 +1,5 @@
 import * as Phaser from "phaser";
-import { ENEMIES, PLAYERS, BULLETS, BUBBLES_UPDATE_PLAYER,LEVEL_SCORE , MAX_SCORE } from "../utils/constants";
+import { ENEMIES, PLAYERS, BULLETS, BUBBLES_UPDATE_PLAYER, LEVEL_SCORE, MAX_SCORE } from "../utils/constants";
 import { Ship } from "../Ship";
 import { Enemy } from "../Enemy";
 import { Bullet } from "../Bullet";
@@ -43,12 +43,12 @@ export class MainScene extends Phaser.Scene {
     this.#cursors = this.input.keyboard.createCursorKeys();
     this.#spaceClick = this.input.keyboard.addKey("space");
     this.#handleTouch();
-    
+
     this.#addText();
 
   }
   create() {
-    
+
     this.#loadBackground();
     this.#player = Ship.create(this, "player-1");
 
@@ -94,26 +94,14 @@ export class MainScene extends Phaser.Scene {
 
   }
   update() {
-    this.#background.tilePositionY += 2
+    this.#background.tilePositionY += this.#bulletTypeCounter
     if (this.#state === 'game_over') {
       return;
     }
-    if ( this.#monster &&( this.#monster.body.blocked.left || this.#monster.body.blocked.right)) {
-      this.#monster.setVelocityX(250 * (this.#monster.body.blocked.left ? 1 : -1) );
-    }
-    if (this.#monster && (this.#monster.body.blocked.up || this.#monster.body.blocked.down)) {
-        this.#monster.setVelocityY(250 * (this.#monster.body.blocked.left ? 1 : -1));
-    }
-    if (this.#score === MAX_SCORE - 15)  {
-      if (!this.#monster.visible) {
-        this.#monster.visible = true;
-        this.#monster.setVelocityY(Phaser.Math.Between(-250,250));
-        this.#monster.setVelocityX(Phaser.Math.Between(-250,250));
-      }
+    this.#moveMonster();
 
-    }
     if (this.#score >= MAX_SCORE) {
-      this.#showTextCenter('You Win !\n your score is ' + this.#numberOfShoots);
+      this.#showTextCenter('You Win !\n your score is ' + this.#score);
       this.physics.pause();
       return;
     }
@@ -147,7 +135,7 @@ export class MainScene extends Phaser.Scene {
     //this.load.image("bullet", "assets/images/bullet.png");
     this.load.image("bulletEnemy", "assets/images/enemy/bullet_enemy.png");
     this.load.image("bulletMonster", "assets/images/bullet/bulletmm.png");
-    
+
     this.load.spritesheet(
       "explosion",
       "assets/images/explision/explosion_spritesheet.png",
@@ -244,16 +232,7 @@ export class MainScene extends Phaser.Scene {
   #shootBullet() {
     this.#numberOfShoots += 1
     Bullet.create(this.#bullets, this.#player.x, this.#player.y, 0.9, -1000, `bullet${Math.min(this.#bulletTypeCounter, 4)}`)
-    /*
-    const BULLET_SCALE = 0.5 * (this.#level / 7 + 1);
-    const BULLET_VELOCITY = -1000 * (this.#level / 5 + 1);
-    const bullet = this.#bullets.create(
-      this.#player.x,
-      this.#player.y,
-      "bullet"
-    );
-    bullet.setScale(BULLET_SCALE);
-    bullet.setVelocityY(BULLET_VELOCITY);*/
+
   }
 
   #createAnimations() {
@@ -280,7 +259,7 @@ export class MainScene extends Phaser.Scene {
     explosion.play("explode");
     this.#endGame();
   }
-  #playerMonsterCollison (player, monster) {
+  #playerMonsterCollison(player, monster) {
     this.#sounds.explosion.play();
     player.disableBody(true, false);
     monster.disableBody(true, true);
@@ -295,11 +274,26 @@ export class MainScene extends Phaser.Scene {
     this.#state = "game_over";
     this.#showTextCenter("game Over !");
     this.physics.pause();
-     setTimeout(() => {
+    setTimeout(() => {
       location.reload();
-    }, 2000) 
+    }, 2000)
   }
+  #moveMonster() {
+    if (this.#monster && (this.#monster.body.blocked.left || this.#monster.body.blocked.right)) {
+      this.#monster.setVelocityX(250 * (this.#monster.body.blocked.left ? 1 : -1));
+    }
+    if (this.#monster && (this.#monster.body.blocked.up || this.#monster.body.blocked.down)) {
+      this.#monster.setVelocityY(250 * (this.#monster.body.blocked.left ? 1 : -1));
+    }
+    if (this.#score === MAX_SCORE - 15) {
+      if (!this.#monster.visible) {
+        this.#monster.visible = true;
+        this.#monster.setVelocityY(Phaser.Math.Between(-250, 250));
+        this.#monster.setVelocityX(Phaser.Math.Between(-250, 250));
+      }
 
+    }
+  }
   #bulletEnemyCollision(bullet, enemy) {
     bullet.disableBody(true, true);
     enemy.disableBody(true, true);
@@ -317,6 +311,7 @@ export class MainScene extends Phaser.Scene {
     this.#score += 5;
     this.#scoreText.setText(`Score: ${this.#score}`)
   }
+
   #increaseScore() {
     this.#score += 1;
     this.#scoreText.setText(`Score: ${this.#score}`);
@@ -361,12 +356,12 @@ export class MainScene extends Phaser.Scene {
     this.#hitCount++;
     this.#sounds.monsterHit.play();
     this.#monster.setTint(0xff00000);
-    setTimeout( () => {
+    setTimeout(() => {
       this.#monster.clearTint()
     }, 200);
 
 
-  return this.#hitCount/5 >= 10;
+    return this.#hitCount / 5 >= 10;
   }
   #addColliders() {
     this.physics.add.collider(
@@ -398,7 +393,7 @@ export class MainScene extends Phaser.Scene {
       this
     );
   }
-  #addMonsterColliders( ) {
+  #addMonsterColliders() {
 
     this.physics.add.collider(
       this.#player,
@@ -445,7 +440,7 @@ export class MainScene extends Phaser.Scene {
       this.#player.y - randomEnemy.y
     ).normalize();
     enemybullet.setVelocity(direction.x * 500, direction.y * 500);
-    
+
     if (this.#monster.visible) {
 
       const monsterBullet = this.#bulletsEnemies.create(
@@ -461,7 +456,7 @@ export class MainScene extends Phaser.Scene {
       ).normalize();
       monsterBullet.setVelocity(direction.x * 1000, direction.y * 1000);
 
-      
+
     }
 
   }
@@ -475,9 +470,6 @@ export class MainScene extends Phaser.Scene {
 
     }).setOrigin(0.5, 0.5);
 
-
-
-
   }
 
   #showBubbleUpdatePlayer() {
@@ -486,7 +478,7 @@ export class MainScene extends Phaser.Scene {
       return;
     }
 
-    if (this.#score % LEVEL_SCORE  === 0 && this.#score > 0) {
+    if (this.#score % LEVEL_SCORE === 0 && this.#score > 0) {
       // Zufällige Koordinaten generieren
       const [width, height] = getWindowWidthAndHeight();
       var randomX = Phaser.Math.Between(100, width - 100);

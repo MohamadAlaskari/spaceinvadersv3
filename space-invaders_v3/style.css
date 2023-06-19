@@ -36,7 +36,7 @@ h1 {
 	margin-bottom: 0px;
 	text-align: center;
 	color: #fff;
-	
+
 	animation: slide-upDown-y 0.5s 0.3s ease-out;
 
 
@@ -105,30 +105,25 @@ h1 {
 
 
 
-.center {
-	width: 100vw;
-	height: 75vh;
-	justify-content: center;
-	align-items: center;
-	display: none;
-	flex-direction: column;
-}
+
 #start-game {
+	display: none;
+	position: fixed;
+	top: 50vh;
+	left: 50vw;
 	padding: 2vmin;
 	border: 1vmin solid white;
 	color: white;
+	font-family: sans-serif;
 	font-size: 7vmin;
+	transform: translate(-50%, -50%);
 	background: rgba(0, 0, 0, 0.5);
 	cursor: pointer;
 	transition: transform .2s;
 }
-#start-game:disabled {
-	cursor:auto;
-	border-color: red;
-}
 
 #start-game:hover {
-	transform:scale(1.2);
+	transform: translate(-50%, -50%) scale(1.2);
 }
 
 @keyframes leftMove {
@@ -143,6 +138,7 @@ h1 {
 		opacity: 0;
 	}
 }
+
 @keyframes slide-upDown-y {
 	from {
 		transform: translateY(-20px);
