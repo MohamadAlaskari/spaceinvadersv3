@@ -1,0 +1,151 @@
+body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #000000;
+	font-family: sans-serif;
+
+
+}
+
+.vid-bg {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	min-width: 100%;
+	min-height: 100%;
+}
+
+h1 {
+	margin: 0;
+}
+
+.main {
+	position: fixed;
+	top: 50vh;
+	left: 50vw;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.main h1 {
+	font-size: 14vmin;
+	margin-bottom: 0px;
+	text-align: center;
+	color: #fff;
+	
+	animation: slide-upDown-y 0.5s 0.3s ease-out;
+
+
+}
+
+.main p {
+	text-align: center;
+	font-size: 3vmin;
+	margin: 0 0 4vmin 0;
+	color: rgba(255, 255, 255, 0.8);
+	animation: slide-in-y 0.5s 0.3s ease-out;
+
+
+}
+
+.main .btns {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	justify-content: center;
+}
+
+.main .btns .btn {
+	padding: 10px 20px;
+	background-color: transparent;
+	color: rgba(255, 255, 255, 0.6);
+	border: 2px solid rgba(255, 255, 255, 0.6);
+	border-radius: 4px;
+	font-size: 3vmin;
+	cursor: pointer;
+	transition: all .2s ease-in;
+}
+
+.main .btns .btn:hover {
+	color: #ffffff;
+	border: 2px solid #ffffff;
+
+
+}
+
+.backArrow_container {
+	margin: 16px;
+	height: 16px;
+	padding: 1vmin;
+	border-radius: 15%;
+	width: max-content;
+	height: min-content;
+	cursor: pointer;
+
+}
+
+#backArrow {
+	display: none;
+	color: #fff;
+}
+
+.backArrow_container svg {
+	animation: leftMove 2s ease-out infinite forwards;
+	width: 5vmin;
+	height: 5vmin;
+}
+
+
+
+
+
+
+
+.center {
+	width: 100vw;
+	height: 75vh;
+	justify-content: center;
+	align-items: center;
+	display: none;
+	flex-direction: column;
+}
+#start-game {
+	padding: 2vmin;
+	border: 1vmin solid white;
+	color: white;
+	font-size: 7vmin;
+	background: rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+	transition: transform .2s;
+}
+#start-game:disabled {
+	cursor:auto;
+	border-color: red;
+}
+
+#start-game:hover {
+	transform:scale(1.2);
+}
+
+@keyframes leftMove {
+	to {
+		transform: translateX(-22px);
+	}
+}
+
+@keyframes slide-in-y {
+	from {
+		transform: translateY(20px);
+		opacity: 0;
+	}
+}
+@keyframes slide-upDown-y {
+	from {
+		transform: translateY(-20px);
+		opacity: 0;
+	}
+}

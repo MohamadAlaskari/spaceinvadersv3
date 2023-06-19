@@ -1,0 +1,23 @@
+{
+  "name": "space-invaders_v3",
+  "private": true,
+  "version": "3.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "npm run dev"
+  },
+  "devDependencies": {
+    "sass": "^1.63.4",
+    "vite": "^4.3.9"
+  },
+  "dependencies": {
+    "phaser": "^3.60.0"
+  },
+  "description": "Game Design with Phaser",
+  "main": "main.js",
+  "author": "Mohamad Alaskari",
+  "license": "ISC"
+}
