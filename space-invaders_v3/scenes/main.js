@@ -1,8 +1,8 @@
 import * as Phaser from "phaser";
 import { ENEMIES, PLAYERS, BULLETS, BUBBLES_UPDATE_PLAYER, LEVEL_SCORE, MAX_SCORE } from "../utils/constants";
-import { Ship } from "../Ship";
-import { Enemy } from "../Enemy";
-import { Bullet } from "../Bullet";
+import { Ship } from "../module/Ship";
+import { Enemy } from "../module/Enemy";
+import { Bullet } from "../module/Bullet";
 
 
 import { getWindowWidthAndHeight } from "../utils/utils";

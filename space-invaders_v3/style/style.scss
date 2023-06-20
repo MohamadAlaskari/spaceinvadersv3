@@ -1,0 +1,853 @@
+@charset "UTF-8"
+@import url("https://use.typekit.net/qns0lts.css")
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i")
+
+$orange: #feac5e
+$purple: #c779d0
+$teal: #4bc0c8
+$darkGray: #3d3d50
+$lightGrayText: #888
+$lightGrayBg: #efefef
+$white: #fff
+
+body
+  font-family: 'Proxima-Nova', sans-serif
+  font-size: 15px
+  line-height: 1.8em
+  color: $darkGray
+  font-weight: normal
+  background: $white
+
+h1, h2, h3, h4, h5, h6
+  margin: 0 0 15px
+  color: $white
+
+h1
+  font-family: 'Playfair Display', serif
+  font-size: 22px
+  line-height: 1.8em
+  font-weight: 900
+  a
+    color: $white
+
+h2
+  font-family: 'Playfair Display', serif
+  text-transform: uppercase
+  font-style: normal
+  font-weight: 900
+  font-size: 24px
+  letter-spacing: .125em
+  line-height: 1em
+  text-transform: uppercase
+
+h3
+  font-family: 'Proxima-Nova', sans-serif
+  font-size: 16px
+  line-height: 1.8em
+  font-weight: 900
+
+h4
+  font-family: 'Proxima-Nova', sans-serif
+  font-size: 15px
+  line-height: 1.8em
+  font-weight: normal
+
+h5
+  font-family: 'Proxima-Nova', sans-serif
+  font-size: 15px
+  line-height: 1.5em
+  font-weight: normal
+
+h6
+  font-family: 'Proxima-Nova', sans-serif
+  font-size: 15px
+  line-height: 1.5em
+
+span.spacey
+  font-family: 'Playfair Display', serif
+  text-transform: uppercase
+  font-style: normal
+  font-weight: 900
+  font-size: 24px
+  letter-spacing: .125em
+  line-height: 1em
+  text-transform: uppercase
+  color: $teal
+
+strong
+  font-weight: 900
+  &.uppercase
+    text-transform: uppercase
+    letter-spacing: .125em
+  letter-spacing: .125em
+
+div.margin-bottom-20
+  margin-bottom: 20px
+
+i.fa
+  color: $purple
+
+hr
+  &.desktop
+    display: block
+    clear: both
+  &.mobile
+    display: none
+
+@media (max-width: 600px)
+  hr
+    &.desktop
+      display: none
+    &.mobile
+      display: block
+  .iframe-desktop
+    display: none
+
+/* --------------------------------------
+ * LINK STYLE
+ *------------------------------------------
+
+a
+  color: $purple
+  text-decoration: none
+  -webkit-transition: all 0.3s ease 0s
+  -moz-transition: all 0.3s ease 0s
+  -o-transition: all 0.3s ease 0s
+  transition: all 0.3s ease 0s
+  text-decoration: none
+  outline: none
+  &:active, &:focus, &:active
+    text-decoration: none
+    outline: none
+  &:hover, &:focus
+    text-decoration: none
+    color: $teal
+  h3
+    text-decoration: none
+    -webkit-transition: all 0.3s ease 0s
+    -moz-transition: all 0.3s ease 0s
+    -o-transition: all 0.3s ease 0s
+    transition: all 0.3s ease 0s
+  &:hover h3, &:focus h3
+    text-decoration: none
+    color: $teal
+
+p, h1
+  margin-bottom: 20px
+
+ul
+  margin: 0
+  padding: 0
+  list-style: none
+
+/*------------------
+ * Button Style
+ *------------------
+
+.btn
+  padding: 15px 30px 11px
+  margin-bottom: 0
+  font-size: 15px
+  font-weight: normal
+  border-radius: 0
+  border: 0
+  text-transform: uppercase
+
+.btn-lg
+  font-weight: 900
+  font-size: 24px
+  padding: 15px 30px
+
+/*btn-primary
+
+.btn-primary
+  background-color: $orange
+  border: 2px solid $orange
+  &:hover, &:focus, &:active:focus
+    background: $white
+    color: $orange
+    border: 2px solid $orange
+
+/*btn-default
+
+.btn-default
+  color: $teal
+  background-color: $white
+  border: 2px solid $teal
+
+button:focus
+  outline: none
+
+.btn
+  &:focus, &:active:focus
+    outline: none
+
+/* --------------------
+ * Column Block
+ * -------------------
+
+.columns-block
+  flex-wrap: wrap
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+  -webkit-flex-flow: row wrap
+  justify-content: space-around
+
+.blocks
+  box-sizing: border-box
+
+.left-col-block
+  width: 50%
+  text-align: center
+  overflow: hidden
+  position: fixed
+  left: 0
+  .social-icon
+    i.fa
+      color: $white
+
+.right-col-block
+  width: 50%
+  position: absolute
+  right: 0
+  box-shadow: -10px -10px 30px rgba(0, 0, 0, 0.23)
+
+@media (max-width: 600px)
+  .left-col-block
+    width: 100%
+    position: relative
+  .right-col-block
+    width: 100%
+    position: relative
+    box-shadow: none
+
+/* --------------------
+ * Section Background
+ * -------------------
+
+.gray-bg
+  background-color: $lightGrayBg
+
+/* --------------------
+ *  main Wrapper
+ * -------------------
+
+#main-wrapper
+  background: $white
+  overflow: hidden
+
+/*-------------------
+ * Section Wrapper
+ *-------------------
+
+.section-wrapper
+  padding: 50px
+
+@media (max-width: 600px)
+  .section-wrapper
+    padding: 30px 20px
+
+/*---------------------------
+ ** Section Title
+ **---------------------------
+
+.section-title
+  margin-bottom: 15px
+  h2
+    margin-bottom: 5px
+
+/*-----------------------------
+ * NAVIGATION & HEADER STYLE
+ *-------------------------------
+
+.header
+  padding: 0
+  margin: 0
+  height: 100vh
+  vertical-align: middle
+  position: relative
+  .profile-img
+    position: absolute
+    top: 0
+    left: 0
+    z-index: -1
+    width: 100%
+    height: 100%
+    background-size: cover
+    background-position: center top
+    mix-blend-mode: multiply
+    &:before
+      content: ""
+      position: absolute
+      left: 0
+      top: 0
+      right: 0
+      bottom: 0
+      background: linear-gradient(270deg, $orange, $purple, $teal, $orange, $purple, $teal)
+      background-size: 1200% 1200%
+      mix-blend-mode: multiply
+      -webkit-animation: movingGradient 59s ease infinite
+      -moz-animation: movingGradient 59s ease infinite
+      -o-animation: movingGradient 59s ease infinite
+      animation: movingGradient 59s ease infinite
+  .content
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    width: 100%
+    margin: 0 auto
+    padding-bottom: 10%
+    h1
+      font-size: 36px
+      color: $white
+      line-height: 1
+      margin: 0
+      margin-bottom: 20px
+      text-align: center
+    p
+      font-family: "proxima-nova"
+      color: $white
+      font-weight: normal
+      font-style: normal
+      font-size: 16px
+      letter-spacing: .25em
+      line-height: 1em
+      text-transform: uppercase
+      &.lead
+        line-height: 1.25em
+  .btn
+    margin-top: 40px
+  .content .social-icon
+    margin: 0
+    padding: 0
+    display: block
+    li
+      display: inline-block
+      margin: 0 2px
+      a
+        display: block
+        font-size: 12px
+        color: $white
+        width: 50px
+        height: 50px
+        line-height: 49px
+        text-align: center
+        border-radius: 100%
+        border: 2px solid rgba(255, 255, 255, 0.2)
+        .fa-lg
+          font-size: 2em
+          line-height: 1em
+        &:hover
+          border-color: $white
+  .img-responsive
+    width: 50%
+    margin: 0 auto
+
+@keyframes movingGradient
+  0%
+    background-position: 0% 50%
+
+  50%
+    background-position: 100% 50%
+
+  100%
+    background-position: 0% 50%
+
+
+@media (max-width: 1500px)
+  .header .img-responsive
+    width: 75%
+    margin: 0 auto
+
+@media (max-width: 1000px)
+  .header .img-responsive
+    width: 75%
+    margin: 0 auto
+
+@media (max-width: 600px)
+  .header
+    .profile-img
+      z-index: 1
+    .img-responsive
+      width: 75%
+      margin: 0 auto
+    .content
+      z-index: 2
+
+/*-------------------
+ * Intro
+ *-------------------
+
+.intro
+  color: $white
+  background: $darkGray
+  a
+    color: $purple
+    padding: 0 2px 0 5px
+    font-style: normal
+    letter-spacing: .25em
+    line-height: 1em
+    text-transform: uppercase
+    font-weight: normal
+    text-decoration: none
+    -webkit-transition: all 0.3s ease 0s
+    -moz-transiti: all 0.3s ease 0s
+    transition: all 0.3s ease 0s
+    text-decoration: none
+    outline: none
+    &:active, &:focus, &:active
+      text-decoration: none
+      outline: none
+    &:hover, &:focus
+      text-decoration: none
+      color: $white
+      background-color: $purple
+      padding: 0 2px 0 5px
+      font-weight: normal
+      font-style: normal
+      letter-spacing: .25em
+      line-height: 1em
+      text-transform: uppercase
+
+/*-------------------
+ * Expertise
+ *-------------------
+
+.expertise-item
+  margin-bottom: 20px
+  p
+    line-height: 1.5em
+    span
+      &.italic
+        font-style: italic
+  h3
+    margin-bottom: 5px
+    font-family: "proxima-nova"
+    color: $lightGrayText
+    font-weight: 900
+    font-style: normal
+    font-size: 16px
+    letter-spacing: .25em
+    line-height: 1em
+    text-transform: uppercase
+
+/*-------------------
+ * Portfolio
+ *-------------------
+
+a
+  &.portfolio-item
+    position: relative
+    display: block
+    margin-bottom: 30px
+    border: 4px solid $white
+    .portfolio-thumb img
+      height: auto
+      display: block
+      max-width: 100%
+    .portfolio-info
+      position: absolute
+      bottom: 0
+      padding: 30px 15px 5px
+      width: 100%
+      background: -webkit-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.25) 100%)
+      h3
+        margin: 0
+        line-height: 1
+        font-family: "proxima-nova"
+        color: $white
+        font-weight: normal
+        font-style: normal
+        font-size: 16px
+        letter-spacing: .25em
+        line-height: 1em
+        text-transform: uppercase
+      small
+        color: $white
+    &:hover
+      opacity: .5
+
+/*-------------------
+ * Content Item
+ *-------------------
+
+.content-item
+  margin-bottom: 0px
+  h3
+    margin: 0
+    line-height: 1
+    font-weight: 900
+    letter-spacing: .125em
+    text-transform: uppercase
+  h4
+    margin: 2.5px 0 7.5px
+    line-height: 1.25em
+    text-transform: none
+    & strong
+      text-transform: uppercase
+  p
+    line-height: 1em
+    font-size: .85em
+    text-transform: uppercase
+    margin-bottom: 7.5px
+    &.desc
+      margin: 2.5px 0 7.5px
+      line-height: 1.25em
+      text-transform: none
+      color: #888
+  small
+    color: $lightGrayText
+    font-weight: normal
+    font-style: normal
+    letter-spacing: .25em
+    line-height: 1em
+    text-transform: uppercase
+#experience .content-item:last-child 
+  margin-bottom: 40px
+
+/* --------------------------------------------
+ *   Footer
+ *----------------------------------------------
+
+/* Copyright
+
+.footer
+  padding: 30px 50px
+  background-color: $darkGray
+  bottom: 0
+  p
+    margin-bottom: 0
+  .copyright-section
+    font-size: 13px
+    line-height: 1.25em
+    color: $white
+  a
+    color: $purple
+    padding: 0 2px 0 5px
+    font-style: normal
+    letter-spacing: .25em
+    line-height: 1em
+    text-transform: uppercase
+    font-weight: normal
+    text-decoration: none
+    -webkit-transition: all 0.3s ease 0s
+    -moz-transiti: all 0.3s ease 0s
+    transition: all 0.3s ease 0s
+    text-decoration: none
+    outline: none
+    &:active, &:focus, &:active
+      text-decoration: none
+      outline: none
+    &:hover, &:focus
+      text-decoration: none
+      color: $white
+      background-color: $purple
+      padding: 0 2px 0 5px
+      font-weight: normal
+      font-style: normal
+      letter-spacing: .25em
+      line-height: 1em
+      text-transform: uppercase
+  .copyright-section .copytext
+    font-weight: normal
+    display: block
+  iframe
+    margin-bottom: 10px
+
+@media (max-width: 600px)
+  .footer
+    padding: 20px 20px
+    p
+      margin-bottom: 0
+      text-align: center
+
+/* ====================
+ * Preloader
+ * ====================
+
+#preloader
+  background: $orange
+  bottom: 0
+  left: 0
+  position: fixed
+  right: 0
+  top: 0
+  z-index: 9999
+
+#status
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/74452/puff.svg')
+  background-position: center
+  background-repeat: no-repeat
+  height: 200px
+  left: 50%
+  margin: -100px 0 0 -100px
+  position: absolute
+  top: 50%
+  width: 200px
+
+.status-mes
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/74452/puff.svg')
+  background-position: center
+  background-repeat: no-repeat
+  height: 200px
+  left: 50%
+  margin: -100px 0 0 -100px
+  position: absolute
+  top: 50%
+  width: 200px
+  background: none
+  left: 0
+  margin: 0
+  text-align: center
+  top: 65%
+  
+#parallax-nav
+  a
+    color: $darkGray
+    cursor: pointer
+    &:hover .nav-title
+      right: 20px
+      opacity: 1
+      z-index: 51
+      margin-right: 5px
+      visibility: visible
+      cursor: pointer
+    display: block
+    margin: 0
+    padding: 10px 0 10px 15px
+    cursor: pointer
+    outline: 0
+    cursor: pointer
+  position: fixed
+  z-index: 52
+  top: 50%
+  right: 15px
+  padding: 0 10px 0 0
+  -webkit-transition: opacity .3s 0s linear
+  -moz-transition: opacity .3s 0s linear
+  -o-transition: opacity .3s 0s linear
+  transition: opacity .3s 0s linear
+  -webkit-transform: translate3d(0, -50%, 0)
+  -moz-transform: translate3d(0, -50%, 0)
+  -ms-transform: translate3d(0, -50%, 0)
+  -o-transform: translate3d(0, -50%, 0)
+  transform: translate3d(0, -50%, 0)
+  cursor: pointer
+  .dot
+    background-color: $orange
+    width: 8px
+    height: 8px
+    display: block
+    text-decoration: none
+    -webkit-border-radius: 50%
+    border-radius: 50%
+    -webkit-transition: background-color 0.1s linear, border-color 0.1s linear
+    -moz-transition: background-color 0.1s linear, border-color 0.1s linear
+    -o-transition: background-color 0.1s linear, border-color 0.1s linear
+    transition: background-color 0.1s linear, border-color 0.1s linear
+    cursor: pointer
+    &:hover
+      background-color: $purple
+      cursor: pointer
+
+.nav-title
+  position: absolute
+  right: 10px
+  opacity: 0
+  font-size: 13px
+  text-transform: uppercase
+  white-space: nowrap
+  font-family: "proxima-nova"
+  letter-spacing: .125em
+  font-weight: 500
+  font-style: normal
+  text-decoration: none
+  margin-top: -11px
+  margin-right: 10px
+  padding: 0px 15px
+  -webkit-transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1)
+  -moz-transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1)
+  -ms-transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1)
+  -o-transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1)
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1)
+  line-height: 2em
+  visibility: hidden
+  color: $darkGray
+  background-color: $white
+  cursor: pointer
+
+@media (max-width: 600px)
+  #parallax-nav
+    display: none
+
+span.italic
+  font-style: italic 
+  
+
+
+/* ====================
+ * Posts
+ * ====================
+.post
+  a
+    color: $white
+    padding: 0 2px 0 5px
+    font-style: normal
+    letter-spacing: .25em
+    line-height: 1em
+    text-transform: uppercase
+    font-weight: normal
+    text-decoration: none
+    -webkit-transition: all 0.3s ease 0s
+    -moz-transiti: all 0.3s ease 0s
+    transition: all 0.3s ease 0s
+    text-decoration: none
+    outline: none
+    &:active, &:focus, &:active
+      text-decoration: none
+      outline: none
+    &:hover, &:focus
+      text-decoration: none
+      color: $white
+      background-color: $purple
+      padding: 0 2px 0 5px
+      font-weight: normal
+      font-style: normal
+      letter-spacing: .25em
+      line-height: 1em
+      text-transform: uppercase
+  h1, h2, h3, h4, h5, h6
+    margin: 15px 0
+  h1
+    font-family: 'Playfair Display', serif
+    text-transform: uppercase
+    font-style: normal
+    font-weight: 900
+    font-size: 36px
+    letter-spacing: .125em
+    line-height: 1em
+    text-transform: uppercase
+    color: $teal
+    text-align: left
+    &.move-up
+      margin-top: -20px
+  h2
+    font-family: 'Playfair Display', serif
+    text-transform: lowercase
+    font-style: italic
+    font-weight: 900
+    font-size: 18px
+    letter-spacing: .125em
+    line-height: 2em
+    color: white
+    margin: 15px 0 0
+  h3
+    font-family: 'Proxima-Nova', sans-serif
+    font-size: 18px
+    line-height: 1.8em
+    font-weight: 900
+    letter-spacing: .125em
+    text-transform: uppercase
+    color: $darkGray
+  p, ul, ol, li
+    font-family: 'Proxima-Nova', sans-serif
+    font-size: 15px
+    line-height: 1.5em
+    font-weight: 100
+  ol
+    margin-left: .25em
+  ul    
+    padding: 0
+    margin: 0
+  ul > li:before
+    content: '•'
+    color: $orange
+    display: inline-block
+    margin-right: .25em
+  blockquote
+    border-left: 5px solid #eee
+    margin-left: 0
+    p
+      font-family: 'Playfair Display', serif
+      text-transform: inherit
+      font-style: italic
+      font-weight: 900
+      font-size: 24px
+      letter-spacing: .125em
+      line-height: 1.25em
+      color: $orange
+      margin: 20px 0
+      margin: 1em
+    p:first-child:first-letter
+      letter-spacing: 0
+      color: $orange
+      float: left
+      font-size: 4em
+      line-height: 1em
+      margin-top: -.075em
+      padding-right: .075em
+  strong
+    font-weight: 700
+    letter-spacing: .125em
+    text-transform: uppercase
+  div.margin-bottom-20
+    margin-bottom: 20px
+  .section-wrapper
+    min-height: calc(100vh - 186px)
+    &#intro
+      min-height: inherit
+  .footer
+    padding: 30px 50px
+    background-color: $darkGray
+    p
+      margin-bottom: 0
+      font-size: 13px
+      line-height: 1.25em
+      font-weight: 100
+    .copyright-section
+      font-size: 13px
+      line-height: 1.25em
+      color: $white
+    a
+      color: $purple
+      padding: 0 2px 0 5px
+      font-style: normal
+      letter-spacing: .25em
+      line-height: 1em
+      text-transform: uppercase
+      font-weight: normal
+      text-decoration: none
+      -webkit-transition: all 0.3s ease 0s
+      -moz-transiti: all 0.3s ease 0s
+      transition: all 0.3s ease 0s
+      text-decoration: none
+      outline: none
+      &:active, &:focus, &:active
+        text-decoration: none
+        outline: none
+      &:hover, &:focus
+        text-decoration: none
+        color: $white
+        background-color: $purple
+        padding: 0 2px 0 5px
+        font-weight: normal
+        font-style: normal
+        letter-spacing: .25em
+        line-height: 1em
+        text-transform: uppercase
+    .copyright-section .copytext
+      font-weight: normal
+      display: block
+    iframe
+      margin-bottom: 10px
+
+  @media (max-width: 600px)
+    .footer
+      padding: 20px 20px
+      p
+        margin-bottom: 0
+        text-align: center
