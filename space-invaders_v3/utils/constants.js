@@ -1,5 +1,5 @@
-export const LEVEL_SCORE = 15;
-export const MAX_SCORE = 15;
+export const LEVEL_SCORE = 10;
+export const MAX_SCORE = 40;
 
 export const PLAYERS = [
   "assets/images/player/level1_player1.png",

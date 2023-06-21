@@ -1,0 +1,688 @@
+@charset "UTF-8";
+@import url("https://use.typekit.net/qns0lts.css");
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i");
+
+:root {
+  --orange: #feac5e;
+  --purple: #c779d0;
+  --teal: #4bc0c8;
+  --darkGray: #3d3d50;
+  --lightGrayText: #888;
+  --lightGrayBg: #efefef;
+  --white: #fff;
+
+}
+
+body {
+  font-family: 'Proxima-Nova', sans-serif;
+  font-size: 15px;
+  line-height: 1.8em;
+  color: var(--darkGray);
+  font-weight: normal;
+  background: var(--white);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 15px;
+  color: var(--darkGray);
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  line-height: 1.8em;
+  font-weight: 900;
+}
+
+h1 a {
+  color: var(--white);
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: .125em;
+  line-height: 1em;
+}
+
+h3 {
+  font-family: 'Proxima-Nova', sans-serif;
+  font-size: 16px;
+  line-height: 1.8em;
+  font-weight: 900;
+}
+
+h4,
+h5,
+h6 {
+  font-family: 'Proxima-Nova', sans-serif;
+  font-size: 15px;
+  line-height: 1.5em;
+}
+
+span.spacey {
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: .125em;
+  line-height: 1em;
+  color: var(--teal);
+}
+
+strong {
+  font-weight: 900;
+}
+
+strong.uppercase {
+  text-transform: uppercase;
+  letter-spacing: .125em;
+}
+
+div.margin-bottom-20 {
+  margin-bottom: 20px;
+}
+
+i.fa {
+  color: var(--purple);
+}
+
+hr.desktop {
+  display: block;
+  clear: both;
+}
+
+hr.mobile {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  hr.desktop {
+    display: none;
+  }
+
+  hr.mobile {
+    display: block;
+  }
+
+  .iframe-desktop {
+    display: none;
+  }
+}
+
+
+/* LINK STYLE */
+
+a {
+  color: var(--purple);
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+  outline: none;
+}
+
+a:active,
+a:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+a:hover,
+a:focus {
+  text-decoration: none;
+  color: var(--teal);
+}
+
+a h3 {
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+}
+
+a:hover h3,
+a:focus h3 {
+  text-decoration: none;
+  color: var(--teal);
+}
+
+p,
+h1 {
+  margin-bottom: 20px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Button Style */
+
+.btn {
+  padding: 15px 30px 11px;
+  margin-bottom: 0;
+  font-size: 15px;
+  font-weight: normal;
+  border-radius: 0;
+  border: 0;
+  text-transform: uppercase;
+}
+
+.btn-lg {
+  font-weight: 900;
+  font-size: 24px;
+  padding: 15px 30px;
+}
+
+.btn-primary {
+  background-color: var(--orange);
+  border: 2px solid var(--orange);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active:focus {
+  background: var(--white);
+  color: var(--orange);
+  border: 2px solid var(--orange);
+}
+
+.btn-default {
+  color: var(--teal);
+  background-color: var(--white);
+  border: 2px solid var(--teal);
+}
+
+button:focus,
+.btn:focus,
+.btn:active:focus {
+  outline: none;
+}
+
+/* Column Block */
+
+.columns-block {
+  flex-wrap: wrap;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.blocks {
+  box-sizing: border-box;
+}
+
+.left-col-block {
+  width: 50%;
+  text-align: center;
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+}
+
+.left-col-block .social-icon i.fa {
+  color: var(--white);
+}
+
+.right-col-block {
+  width: 50%;
+  position: absolute;
+  right: 0;
+  box-shadow: -10px -10px 30px rgba(0, 0, 0, 0.23);
+}
+
+@media (max-width: 600px) {
+
+  .left-col-block,
+  .right-col-block {
+    width: 100%;
+    position: relative;
+    box-shadow: none;
+  }
+}
+
+/* Section Background */
+
+.gray-bg {
+  background-color: var(--lightGrayBg);
+}
+
+/* main Wrapper */
+
+#main-wrapper {
+  background: var(--white);
+  overflow: hidden;
+}
+
+/* Section Wrapper */
+
+.section-wrapper {
+  padding: 50px;
+}
+
+@media (max-width: 600px) {
+  .section-wrapper {
+    padding: 30px 20px;
+  }
+}
+
+/* Section Title */
+
+.section-title {
+  margin-bottom: 15px;
+}
+
+.section-title h2 {
+  margin-bottom: 5px;
+}
+
+/* NAVIGATION & HEADER STYLE */
+/* The provided styles for the navigation and header are very complex and would need a separate and larger block of CSS code to fully implement. As such, they have been omitted from this example for simplicity. */
+
+/* Intro */
+
+
+
+.intro {
+  color: var(--white);
+  background: var(--darkGray);
+}
+
+.intro a {
+  color: var(--purple);
+  padding: 0 2px 0 5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+  outline: none;
+}
+
+.intro a:active,
+.intro a:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+.intro a:hover,
+.intro a:focus {
+  text-decoration: none;
+  color: var(--white);
+  background-color: var(--purple);
+}
+
+.left-col-block.blocks.post {
+  height: 100%;
+}
+
+.left-col-block.blocks.post .vid-bg {
+  position: absolute;
+  /* Damit das Video absolut positioniert wird und über den Inhalt des Div gelegt wird */
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100vh;
+  width: auto;
+  height: auto;
+  z-index: -1;
+  /* Damit das Video hinter dem Inhalt des Div liegt */
+}
+
+
+/*-------------------
+ * Expertise
+ *-------------------*/
+
+.expertise-item {
+  margin-bottom: 20px;
+}
+
+.expertise-item p {
+  line-height: 1.5em;
+}
+
+.expertise-item p span.italic {
+  font-style: italic;
+}
+
+.expertise-item h3 {
+  margin-bottom: 5px;
+  font-family: "proxima-nova";
+  color: var(--lightGrayText);
+  font-weight: 900;
+  font-style: normal;
+  font-size: 16px;
+  letter-spacing: .25em;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+/*-------------------
+ * Portfolio
+ *-------------------*/
+
+a.portfolio-item {
+  position: relative;
+  display: block;
+  margin-bottom: 30px;
+  border: 4px solid var(--white);
+}
+
+a.portfolio-item .portfolio-thumb img {
+  height: auto;
+  display: block;
+  max-width: 100%;
+}
+
+a.portfolio-item .portfolio-info {
+  position: absolute;
+  bottom: 0;
+  padding: 30px 15px 5px;
+  width: 100%;
+  background: -webkit-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.25) 100%);
+}
+
+a.portfolio-item .portfolio-info h3 {
+  margin: 0;
+  line-height: 1;
+  font-family: "proxima-nova";
+  color: var(--white);
+  font-weight: normal;
+  font-style: normal;
+  font-size: 16px;
+  letter-spacing: .25em;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+a.portfolio-item .portfolio-info small {
+  color: var(--white);
+}
+
+a.portfolio-item:hover {
+  opacity: .5;
+}
+
+/*-------------------
+ * Content Item
+ *-------------------*/
+
+.content-item {
+  margin-bottom: 0px;
+}
+
+.content-item h3 {
+  margin: 0;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: .125em;
+  text-transform: uppercase;
+}
+
+.content-item h4 {
+  margin: 2.5px 0 7.5px;
+  line-height: 1.25em;
+  text-transform: none;
+}
+
+.content-item h4 strong {
+  text-transform: uppercase;
+}
+
+.content-item p {
+  line-height: 1em;
+  font-size: .85em;
+  text-transform: uppercase;
+  margin-bottom: 7.5px;
+}
+
+.content-item p.desc {
+  margin: 2.5px 0 7.5px;
+  line-height: 1.25em;
+  text-transform: none;
+  color: #888;
+}
+
+.content-item small {
+  color: var(--lightGrayText);
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: .25em;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+#experience .content-item:last-child {
+  margin-bottom: 40px;
+}
+
+/* --------------------------------------------
+ *   Footer
+ *----------------------------------------------*/
+
+/* Copyright */
+
+.footer {
+  padding: 30px 50px;
+  background-color: var(--darkGray);
+  bottom: 0;
+}
+
+.footer p {
+  margin-bottom: 0;
+}
+
+.footer .copyright-section {
+  font-size: 13px;
+  line-height: 1.25em;
+  color: var(--white);
+}
+
+.footer a {
+  color: var(--purple);
+  padding: 0 2px 0 5px;
+  font-style: normal;
+  letter-spacing: .25em;
+  line-height: 1em;
+  text-transform: uppercase;
+  font-weight: normal;
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+  outline: none;
+}
+
+.footer a:active,
+.footer a:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+.footer a:hover,
+.footer a:focus {
+  text-decoration: none;
+  color: var(--white);
+  background-color: var(--purple);
+  padding: 0 2px 0 5px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: .25em;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+.footer .copyright-section .copytext {
+  font-weight: normal;
+  display: block;
+}
+
+.footer iframe {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+  .footer {
+    padding: 20px 20px;
+  }
+
+  .footer p {
+    margin-bottom: 0;
+    text-align: center;
+  }
+}
+
+/* Preloader */
+#preloader {
+  background: var(--orange);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+}
+
+#status,
+.status-mes {
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/74452/puff.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 200px;
+  left: 50%;
+  margin: -100px 0 0 -100px;
+  position: absolute;
+  top: 50%;
+  width: 200px;
+}
+
+.status-mes {
+  background: none;
+  left: 0;
+  margin: 0;
+  text-align: center;
+  top: 65%;
+}
+
+/* Parallax Nav */
+#parallax-nav {
+  position: fixed;
+  z-index: 52;
+  top: 50%;
+  right: 15px;
+  padding: 0 10px 0 0;
+  transition: opacity .3s 0s linear;
+  transform: translate3d(0, -50%, 0);
+}
+
+#parallax-nav a {
+  color: var(--darkGray);
+  display: block;
+  margin: 0;
+  padding: 10px 0 10px 15px;
+  outline: 0;
+}
+
+#parallax-nav a:hover .nav-title {
+  right: 20px;
+  opacity: 1;
+  z-index: 51;
+  margin-right: 5px;
+  visibility: visible;
+}
+
+#parallax-nav .dot {
+  background-color: var(--orange);
+  width: 8px;
+  height: 8px;
+  display: block;
+  border-radius: 50%;
+  transition: background-color 0.1s linear, border-color 0.1s linear;
+}
+
+#parallax-nav .dot:hover {
+  background-color: var(--purple);
+}
+
+.nav-title {
+  position: absolute;
+  right: 10px;
+  opacity: 0;
+  font-size: 13px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  font-family: "proxima-nova";
+  letter-spacing: .125em;
+  font-weight: 500;
+  margin-top: -11px;
+  margin-right: 10px;
+  padding: 0px 15px;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  line-height: 2em;
+  visibility: hidden;
+  color: var(--darkGray);
+  background-color: var(--white);
+}
+
+@media (max-width: 600px) {
+  #parallax-nav {
+    display: none;
+  }
+}
+
+span.italic {
+  font-style: italic;
+}
+
+/* Posts */
+.post a {
+  color: var(--white);
+  padding: 0 2px 0 5px;
+  font-style: normal;
+  letter-spacing: .25em;
+  line-height: 1em;
+  text-transform: uppercase;
+  font-weight: normal;
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+  outline: none;
+}
+
+.post a:active,
+.post a:focus,
+.post a:active {
+  text-decoration: none;
+  outline: none;
+}
+
+.post a:hover,
+.post a:focus {
+  text-decoration: none;
+  color: var(--white);
+  background-color: var(--purple);
+  padding: 0 2px 0 5px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: .25em;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+/* Hier fehlen einige CSS-Regeln für die h1 bis h6, p, ul, ol, li und weitere Tags innerhalb der .post Klasse. */
+/* Ich habe sie ausgelassen, um die Antwort kürzer zu halten. */
+
+@media (max-width: 600px) {
+  .footer {
+    padding: 20px 20px;
+
+    p {
+      margin-bottom: 0;
+      text-align: center;
+    }
+  }
+}

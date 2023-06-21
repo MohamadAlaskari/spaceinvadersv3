@@ -34,7 +34,7 @@ export class MainScene extends Phaser.Scene {
   #level = 1;
   constructor() {
     super({
-      key: "MainScene",
+      key: "mainScene",
     });
   }
   preload() {
@@ -259,7 +259,8 @@ export class MainScene extends Phaser.Scene {
     explosion.play("explode");
     this.#endGame();
   }
-  #playerMonsterCollison(player, monster) {
+  #playerMonsterCollision(player, monster) {
+
     this.#sounds.explosion.play();
     player.disableBody(true, false);
     monster.disableBody(true, true);
@@ -275,8 +276,8 @@ export class MainScene extends Phaser.Scene {
     this.#showTextCenter("game Over !");
     this.physics.pause();
     setTimeout(() => {
-      location.reload();
-    }, 2000)
+      this.scene.switch("gameEndeScene")
+    }, 3000)
   }
   #moveMonster() {
     if (this.#monster && (this.#monster.body.blocked.left || this.#monster.body.blocked.right)) {
@@ -304,12 +305,29 @@ export class MainScene extends Phaser.Scene {
     this.#increaseScore();
   }
   #bulletMonsterCollision(bullet, monster) {
+    // Ignoriere die Kollision, wenn das Monster nicht sichtbar ist.
+    if (!this.#monster.visible) {
+      return;
+    }
     bullet.disableBody(true, true);
     this.#monster.disableBody(true, true);
-
     this.#sounds.monsterExplosion.play();
     this.#score += 5;
     this.#scoreText.setText(`Score: ${this.#score}`)
+  }
+  #check(bullet, monster) {
+    if (!this.#monster.visible) {
+      return;
+    }
+    this.#hitCount++;
+    this.#sounds.monsterHit.play();
+    this.#monster.setTint(0xff00000);
+    setTimeout(() => {
+      this.#monster.clearTint()
+    }, 200);
+
+
+    return this.#hitCount / 5 >= 10;
   }
 
   #increaseScore() {
@@ -352,17 +370,7 @@ export class MainScene extends Phaser.Scene {
     this.#addColliders();
     this.#bulletTypeCounter += 1
   }
-  #check(bullet, monster) {
-    this.#hitCount++;
-    this.#sounds.monsterHit.play();
-    this.#monster.setTint(0xff00000);
-    setTimeout(() => {
-      this.#monster.clearTint()
-    }, 200);
 
-
-    return this.#hitCount / 5 >= 10;
-  }
   #addColliders() {
     this.physics.add.collider(
       this.#player,
@@ -398,7 +406,7 @@ export class MainScene extends Phaser.Scene {
     this.physics.add.collider(
       this.#player,
       this.#monster,
-      this.#playerMonsterCollison,
+      this.#playerMonsterCollision,
       null,
       this
     );

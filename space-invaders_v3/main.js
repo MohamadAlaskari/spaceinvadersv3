@@ -1,7 +1,9 @@
 import { getWindowWidthAndHeight } from './utils/utils';
 import * as Phaser from 'phaser';
 import { MainScene } from './scenes/main';
-import { TitleScene } from './scenes/titleScene';
+import { SplashScene } from './scenes/splashScene';
+import { GameEndeScene } from './scenes/gameEndeScene';
+
 
 const [width, height] = getWindowWidthAndHeight();
 
@@ -33,13 +35,14 @@ class Game extends Phaser.Game {
 
 function game() {
   var game = new Game(config);
-  game.scene.add('TitleScene', TitleScene);
+  game.scene.add('splashScene', SplashScene);
+  game.scene.add('mainScene', MainScene);
+  game.scene.add('gameEndeScene', GameEndeScene);
 
-  game.scene.add('MainScene', MainScene);
 
-  game.scene.start('TitleScene');
+  game.scene.start('splashScene');
 }
 
+game();
 document.getElementById('start-game').addEventListener('click', (e) => {
-  game();
 });
