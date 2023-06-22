@@ -43,6 +43,6 @@ function game() {
   game.scene.start('splashScene');
 }
 
-game();
 document.getElementById('start-game').addEventListener('click', (e) => {
+  game();
 });

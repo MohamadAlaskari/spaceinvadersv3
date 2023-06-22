@@ -24,7 +24,7 @@ export class GameEndeScene extends Phaser.Scene {
         }).setOrigin(0.5);
 
         // Buttons hinzufügen
-        let titleButton = this.add.text(CENTER_WIDTH , CENTER_HEIGHT + 125, 'Replay', {
+        let titleButton = this.add.text(CENTER_WIDTH, CENTER_HEIGHT + 125, 'Replay', {
             fontSize: '24px',
             fill: '#fff',
         }).setOrigin(0.5);
