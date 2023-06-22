@@ -75,8 +75,9 @@ export class MainScene extends Phaser.Scene {
     this.#bubbleUpdatePlayer.setScale(0.3)
     this.#bubbleUpdatePlayer.visible = false;
 
-    this.#monster = this.physics.add.sprite(-300, 70, 'monster');
+    this.#monster = this.physics.add.sprite(-100, -100, 'monster');
     this.#monster.setCollideWorldBounds(true);
+    this.#monster.visible = false;
 
 
     this.#createAnimations();
@@ -155,7 +156,7 @@ export class MainScene extends Phaser.Scene {
 
     this.load.image("monster", "assets/images/enemy/monster.png");
     this.load.image("bulletEnemy", "assets/images/enemy/bullet_enemy.png");
-    this.load.image("bulletMonster", "assets/images/bullet/bulletmm.png");
+    this.load.image("bulletMonster", "assets/images/bullet/bullet_Monster.png");
 
     this.load.spritesheet(
       "explosion",
@@ -412,12 +413,12 @@ export class MainScene extends Phaser.Scene {
       }
       this.#monster.setVelocityX(velocityX);
       this.#monster.setVelocityY(velocityY);
-    } else {
-      if (this.#monster.body.blocked.left || this.#monster.body.blocked.right || this.#monster.body.blocked.up || this.#monster.body.blocked.down) {
-        this.#monster.setVelocityX(velocityX);
-        this.#monster.setVelocityY(velocityY);
-      }
     }
+    if (this.#monster.body.blocked.left || this.#monster.body.blocked.right || this.#monster.body.blocked.up || this.#monster.body.blocked.down) {
+      this.#monster.setVelocityX(velocityX);
+      this.#monster.setVelocityY(velocityY);
+    }
+
   }
 
 
@@ -433,7 +434,6 @@ export class MainScene extends Phaser.Scene {
   }
   #bulletMonsterCollision(bullet, monster) {
     if (this.#monster.visible) {
-      
       if (this.#monsterLifeTimeCounter === Monsterlifetime) {
         this.#monster.disableBody(true, true);
       }
@@ -446,6 +446,7 @@ export class MainScene extends Phaser.Scene {
   }
   #check(bullet, monster) {
     if (this.#monster.visible) {
+
       this.#sounds.monsterHit.play();
       this.#monster.setTint(0xff00000);
       const explosion = this.add.sprite(this.#monster.x, this.#monster.y, "explosion");
@@ -462,8 +463,10 @@ export class MainScene extends Phaser.Scene {
   }
 
   #increaseLevel() {
-    this.#level += 1;
-    this.#levelText.setText(`Level: ${this.#level}`)
+    if (this.#level <= 4) {
+      this.#level += 1;
+      this.#levelText.setText(`Level: ${this.#level}`)
+    }
   }
   #bulletEnemyplayerCollision(bulletEnemy, player) {
     this.#sounds.explosion.play();
@@ -582,7 +585,7 @@ export class MainScene extends Phaser.Scene {
         this.#monster.y,
         "bulletMonster"
       );
-      monsterBullet.setScale(0.5);
+      monsterBullet.setScale(0.4);
       this.#sounds.shoot.play();
       const direction = new Phaser.Math.Vector2(
         this.#player.x - this.#monster.x,
