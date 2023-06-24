@@ -80,7 +80,7 @@ export class MainScene extends Phaser.Scene {
     this.#monster.visible = false;
 
 
-    this.#createAnimations();
+    this.#createExplosionAnimations();
 
     this.#addColliders();
     this.#addMonsterColliders();
@@ -280,7 +280,7 @@ export class MainScene extends Phaser.Scene {
     Bullet.create(this.#bullets, this.#player.x, this.#player.y, 0.9, -1000, `bullet${Math.min(this.#bulletTypeCounter, 4)}`)
   }
 
-  #createAnimations() {
+  #createExplosionAnimations() {
     this.anims.create({
       key: "explode",
       frames: this.anims.generateFrameNumbers("explosion", {
