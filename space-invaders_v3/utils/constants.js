@@ -1,5 +1,5 @@
 export const LEVEL_SCORE = 15;
-export const MAX_SCORE = 60;
+export const MAX_SCORE = LEVEL_SCORE * 4;
 export const Monsterlifetime = 10;
 
 export const PLAYERS = [
