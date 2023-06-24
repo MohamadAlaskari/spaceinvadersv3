@@ -71,9 +71,9 @@ export class MainScene extends Phaser.Scene {
     this.#bulletsEnemies = this.physics.add.group();
 
 
-    this.#bubbleUpdatePlayer = this.physics.add.sprite(-400, 200, "bubbleUpdatePlayer2")
-    this.#bubbleUpdatePlayer.setScale(0.3)
-    this.#bubbleUpdatePlayer.visible = false;
+
+    this.#createBubbleUpdatePlayer()
+
 
     this.#monster = this.physics.add.sprite(-100, -100, 'monster');
     this.#monster.setCollideWorldBounds(true);
@@ -133,13 +133,6 @@ export class MainScene extends Phaser.Scene {
     this.#handleCursors(this.#player, 450 + (this.#level - 1) * 50);
     this.#showBubbleUpdatePlayer();
 
-    this.tweens.add({
-      targets: this.#bubbleUpdatePlayer,
-      rotation: Math.PI * 2,
-      duration: 3000,
-      ease: "Linear",
-      repeat: -1, //-1 bedeutet, dass die Animation unendlich oft wiederholt wird.
-    });
   }
 
   #loadAssets() {
@@ -508,15 +501,16 @@ export class MainScene extends Phaser.Scene {
       player.x,
       player.y
     );
-    this.#bubbleUpdatePlayer = this.physics.add.sprite(
-      400,
-      200,
-      "bubbleUpdatePlayer" + (this.#level + 1)
-    );
-    this.#bubbleUpdatePlayer.setScale(0.3);
-    this.#bubbleUpdatePlayer.visible = false;
+    this.#createBubbleUpdatePlayer();
     this.#addColliders();
     this.#bulletTypeCounter += 1
+  }
+
+  #createBubbleUpdatePlayer() {
+    this.#bubbleUpdatePlayer = this.physics.add.sprite(-400, 200, "bubbleUpdatePlayer" + (this.#level + 1)).setScale(0.3)
+    this.physics.world.enable(this.#bubbleUpdatePlayer);
+    this.#bubbleUpdatePlayer.body.setAngularVelocity(125);
+    this.#bubbleUpdatePlayer.visible = false;
   }
 
   #addColliders() {
@@ -638,7 +632,7 @@ export class MainScene extends Phaser.Scene {
       // Zufällige Koordinaten generieren
       const [width, height] = getWindowWidthAndHeight();
       var randomX = Phaser.Math.Between(100, width - 100);
-      var randomY = Phaser.Math.Between(100, height - 100);
+      var randomY = Phaser.Math.Between(200, height - 100);
 
       // Bubble-Update-Player-Objekt an den zufälligen Koordinaten platzieren
       this.#bubbleUpdatePlayer.setPosition(randomX, randomY);
@@ -648,7 +642,6 @@ export class MainScene extends Phaser.Scene {
     } else {
       this.#bubbleUpdatePlayer.visible = false
     }
-    //this.cameras.main.startFollow(this.#player)
   }
 
 }
