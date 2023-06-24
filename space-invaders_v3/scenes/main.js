@@ -240,17 +240,33 @@ export class MainScene extends Phaser.Scene {
 
   #createBackground() {
     const [width, height] = getWindowWidthAndHeight();
-
+    //create stars
     this.#background.stars = this.add
       .tileSprite(0, 0, width, height, "stars")
       .setOrigin(0)
       .setScrollFactor(0.5);
-    this.#background.meteors = this.physics.add.sprite(width, 0, 'meteors').setScale(0.3);
+    //create meteors
+    this.#background.meteors = this.physics.add
+      .sprite(width, 0, 'meteors')
+      .setScale(0.3);
+    // create meteors groupe
     this.#background.luminaries = this.physics.add.group();
+  }
+  #createLuminary() {
+    const [width, height] = getWindowWidthAndHeight();
+    const speed = Phaser.Math.Between(50, 100);
+    const direction = Math.random() < 0.5 ? -1 : 1;
+
+    const x = Phaser.Math.Between(0, width);
+    this.#background.luminaries
+      .create(x, -10, 'luminary')
+      .setScale(0.2)
+      .setVelocityY(speed)
+      .setVelocityX(speed * direction)
+      .setAngularVelocity(Phaser.Math.Between(-200, 200));
 
 
   }
-
   #moveMeteors() {
     const [width, height] = getWindowWidthAndHeight();
 
@@ -262,17 +278,7 @@ export class MainScene extends Phaser.Scene {
       this.#background.meteors.y = 0;
     }
   }
-  #createLuminary() {
-    const [width, height] = getWindowWidthAndHeight();
-    const x = Phaser.Math.Between(0, width);
-    const luminary = this.#background.luminaries.create(x, -10, 'luminary').setScale(0.2);
-    const speed = Phaser.Math.Between(50, 100);
-    const direction = Math.random() < 0.5 ? -1 : 1;
-    luminary.setVelocityY(speed);
-    luminary.setVelocityX(speed * direction);
-    luminary.setAngularVelocity(Phaser.Math.Between(-200, 200));
 
-  }
 
   #shootBullet() {
     Bullet.create(this.#bullets, this.#player.x, this.#player.y, 0.9, -1000, `bullet${Math.min(this.#level, 4)}`)
