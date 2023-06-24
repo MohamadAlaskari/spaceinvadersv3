@@ -101,7 +101,7 @@ export class MainScene extends Phaser.Scene {
       return;
     }
     this.#moveMonster();
-
+    this.#endGame();
     if (this.#score >= MAX_SCORE && this.#monsterLifeTimeCounter === Monsterlifetime) {
       this.#showTextCenter('You Win !\n your score is ' + this.#score);
       this.physics.pause();
@@ -324,7 +324,7 @@ export class MainScene extends Phaser.Scene {
     const explosion = this.add.sprite(player.x, player.y, "explosion");
     explosion.setScale(1);
     explosion.play("explode");
-    this.#endGame();
+    // this.#endGame();
   }
   #playerMonsterCollision(player, monster) {
     if (!this.#monster.visible) {
@@ -338,25 +338,28 @@ export class MainScene extends Phaser.Scene {
     const explosion = this.add.sprite(player.x, player.y, "explosion");
     explosion.setScale(1);
     explosion.play("explode");
-    this.#endGame();
+    // this.#endGame();
   }
   #endGame() {
-    this.#state = "game_over";
-    this.#showTextCenter("game Over !");
-    this.physics.pause();
+    if (this.physics.collide(this.#bulletsEnemies, this.#player) || this.physics.collide(this.#player, this.#enemies) || this.physics.collide(this.#player, this.#monster)) {
+      this.#state = "game_over";
+      this.#showTextCenter("game Over !");
+      this.physics.pause();
 
-    // Stop the ongoing events
-    if (this.#events.createEnemyEvent) {
-      this.#events.createEnemyEvent.remove();
+      // Stop the ongoing events
+      if (this.#events.createEnemyEvent) {
+        this.#events.createEnemyEvent.remove();
+      }
+
+      if (this.#events.shootBulletEvent) {
+        this.#events.shootBulletEvent.remove();
+      }
+
+      setTimeout(() => {
+        this.scene.switch("gameEndeScene");
+      }, 3000);
     }
 
-    if (this.#events.shootBulletEvent) {
-      this.#events.shootBulletEvent.remove();
-    }
-
-    setTimeout(() => {
-      this.scene.switch("gameEndeScene");
-    }, 3000);
   }
   #moveMonsterr() {
     if (this.#monster && (this.#monster.body.blocked.left || this.#monster.body.blocked.right)) {
@@ -511,7 +514,7 @@ export class MainScene extends Phaser.Scene {
     const explosion = this.add.sprite(player.x, player.y, "explosion");
     explosion.setScale(0.8);
     explosion.play("explode");
-    this.#endGame();
+    // this.#endGame();
   }
 
   #playerBubbleCollision(player, bubbleUpdatePlayer) {
