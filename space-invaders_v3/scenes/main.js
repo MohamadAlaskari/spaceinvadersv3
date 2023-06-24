@@ -41,8 +41,9 @@ export class MainScene extends Phaser.Scene {
   }
   #Colliders = {
     playerEnemiescollision: null,
-    playerEnemyBulletsCollision: null,
+    playerEnemiesBulletsCollision: null,
     playerMonsterCollision: null,
+    playerMonsterBulletsCollision: null,
 
   }
   constructor() {
@@ -90,8 +91,6 @@ export class MainScene extends Phaser.Scene {
     this.#createExplosionAnimations();
 
     this.#addColliders();
-    this.#addMonsterColliders();
-
 
 
     this.#createEvents();
@@ -329,8 +328,11 @@ export class MainScene extends Phaser.Scene {
     // this.#endGame();
   }
   #endGame() {
-
-    if (this.#Colliders.playerEnemiescollision || this.#Colliders.playerEnemyBulletsCollision) {
+    console.log('hello', this.#Colliders.playerEnemiescollision);
+    if ((this.#Colliders.playerEnemiescollision && this.#Colliders.playerEnemiescollision.collided) ||
+      (this.#Colliders.playerEnemiesBulletsCollision && this.#Colliders.playerEnemiesBulletsCollision.collided) ||
+      (this.#Colliders.playerMonsterCollision && this.#Colliders.playerMonsterCollision.collided) ||
+      (this.#Colliders.playerMonsterBulletsCollision && this.#Colliders.playerMonsterBulletsCollision.collided)) {
       this.#state = "game_over";
       this.#showTextCenter("game Over !");
     } else if (this.#score >= MAX_SCORE && this.#monsterLifeTimeCounter === Monsterlifetime) {
@@ -354,42 +356,6 @@ export class MainScene extends Phaser.Scene {
     }
 
 
-    /*
-        if (this.#Colliders.playerEnemiescollision || this.#Colliders.playerEnemyBulletsCollision) {
-          this.#state = "game_over";
-          this.#showTextCenter("game Over !");
-          this.physics.pause();
-    
-          // Stop the ongoing events
-          if (this.#events.createEnemyEvent) {
-            this.#events.createEnemyEvent.remove();
-          }
-    
-          if (this.#events.shootBulletEvent) {
-            this.#events.shootBulletEvent.remove();
-          }
-    
-          setTimeout(() => {
-            this.scene.switch("gameEndeScene");
-          }, 3000);
-        } else if (this.#score >= MAX_SCORE && this.#monsterLifeTimeCounter === Monsterlifetime) {
-    
-          this.#showTextCenter('You Win !\n your score is ' + this.#score);
-          this.physics.pause();
-    
-          // Stop the ongoing events
-          if (this.#events.createEnemyEvent) {
-            this.#events.createEnemyEvent.remove();
-          }
-    
-          if (this.#events.shootBulletEvent) {
-            this.#events.shootBulletEvent.remove();
-          }
-    
-          setTimeout(() => {
-            this.scene.switch("gameEndeScene");
-          }, 3000);
-    */
   }
   #moveMonsterr() {
     if (this.#monster && (this.#monster.body.blocked.left || this.#monster.body.blocked.right)) {
@@ -514,6 +480,8 @@ export class MainScene extends Phaser.Scene {
   #check(bullet, monster) {
     if (this.#monster.visible) {
 
+      this.#Colliders.playerEnemiesBulletsCollision.collided = true;
+
       this.#sounds.monsterHit.play();
       this.#monster.setTint(0xff00000);
       const explosion = this.add.sprite(this.#monster.x, this.#monster.y, "explosion");
@@ -573,7 +541,9 @@ export class MainScene extends Phaser.Scene {
       this.#player,
       this.#enemies,
       this.#playerEnemyCollision,
-      null,
+      () => {
+        this.#Colliders.playerEnemiescollision.collided = true;
+      },
       this
     );
     this.physics.add.collider(
@@ -583,11 +553,13 @@ export class MainScene extends Phaser.Scene {
       null,
       this
     );
-    this.#Colliders.playerEnemyBulletsCollision = this.physics.add.collider(
+    this.#Colliders.playerEnemiesBulletsCollision = this.physics.add.collider(
       this.#bulletsEnemies,
       this.#player,
       this.#bulletEnemyplayerCollision,
-      null,
+      () => {
+        this.#Colliders.playerEnemiesBulletsCollision.collided = true;
+      },
       this
     );
     this.physics.add.collider(
@@ -597,17 +569,18 @@ export class MainScene extends Phaser.Scene {
       null,
       this
     );
-  }
-  #addMonsterColliders() {
 
-    this.physics.add.collider(
+
+    this.#Colliders.playerMonsterCollision = this.physics.add.collider(
       this.#player,
       this.#monster,
       this.#playerMonsterCollision,
-      null,
+      () => {
+        this.#Colliders.playerEnemiesBulletsCollision.collided = true;
+      },
       this
     );
-    this.physics.add.collider(
+    this.#Colliders.playerMonsterBulletsCollision = this.physics.add.collider(
       this.#bullets,
       this.#monster,
       this.#bulletMonsterCollision,
