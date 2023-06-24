@@ -34,8 +34,11 @@ export class MainScene extends Phaser.Scene {
   #levelText;
   #score = 0;
   #level = 1;
-  #createEnemyEvent;
-  #shootBulletEvent;
+  #events = {
+    createEnemyEvent: null,
+    shootBulletEvent: null,
+    createLuminaryEvent: null,
+  }
   constructor() {
     super({
       key: "mainScene",
@@ -84,20 +87,9 @@ export class MainScene extends Phaser.Scene {
     this.#addMonsterColliders();
 
 
-    this.#createEnemyEvent = this.time.addEvent({
-      delay: 2000 / this.#level,
-      callbackScope: this,
-      loop: true,
-      callback: this.#createEnemy,
-    });
 
-    this.#shootBulletEvent = this.time.addEvent({
-      delay: 2000 / this.#level,
-      loop: true,
-      callback: this.#shootBulletFromEnemy,
-      callbackScope: this,
-    });
-    this.time.addEvent({ delay: 10000, callback: this.#createLuminary, callbackScope: this, loop: true });
+    this.#createEvents();
+
 
 
   }
@@ -113,13 +105,14 @@ export class MainScene extends Phaser.Scene {
     if (this.#score >= MAX_SCORE && this.#monsterLifeTimeCounter === Monsterlifetime) {
       this.#showTextCenter('You Win !\n your score is ' + this.#score);
       this.physics.pause();
+
       // Stop the ongoing events
-      if (this.#createEnemyEvent) {
-        this.#createEnemyEvent.remove();
+      if (this.#events.createEnemyEvent) {
+        this.#events.createEnemyEvent.remove();
       }
 
-      if (this.#shootBulletEvent) {
-        this.#shootBulletEvent.remove();
+      if (this.#events.shootBulletEvent) {
+        this.#events.shootBulletEvent.remove();
       }
 
       setTimeout(() => {
@@ -128,10 +121,12 @@ export class MainScene extends Phaser.Scene {
 
       return;
     }
+
     this.#handleCursors(this.#player, 450 + (this.#level - 1) * 50);
     this.#showBubbleUpdatePlayer();
 
   }
+
 
   #loadAssets() {
     PLAYERS.forEach((assetPath, idx) => {
@@ -237,6 +232,28 @@ export class MainScene extends Phaser.Scene {
       fill: "#fff",
     });
   }
+  #createEvents() {
+    this.#events.createEnemyEvent = this.time.addEvent({
+      delay: 2000 / this.#level,
+      callback: this.#createEnemy,
+      callbackScope: this,
+      loop: true
+    });
+
+    this.#events.shootBulletEvent = this.time.addEvent({
+      delay: 2000 / this.#level,
+      callback: this.#shootBulletFromEnemy,
+      callbackScope: this,
+      loop: true
+    });
+
+    this.#events.createLuminaryEvent = this.time.addEvent({
+      delay: 10000,
+      callback: this.#createLuminary,
+      callbackScope: this,
+      loop: true
+    });
+  }
 
   #createBackground() {
     const [width, height] = getWindowWidthAndHeight();
@@ -252,6 +269,7 @@ export class MainScene extends Phaser.Scene {
     // create meteors groupe
     this.#background.luminaries = this.physics.add.group();
   }
+
   #createLuminary() {
     const [width, height] = getWindowWidthAndHeight();
     const speed = Phaser.Math.Between(50, 100);
@@ -328,12 +346,12 @@ export class MainScene extends Phaser.Scene {
     this.physics.pause();
 
     // Stop the ongoing events
-    if (this.#createEnemyEvent) {
-      this.#createEnemyEvent.remove();
+    if (this.#events.createEnemyEvent) {
+      this.#events.createEnemyEvent.remove();
     }
 
-    if (this.#shootBulletEvent) {
-      this.#shootBulletEvent.remove();
+    if (this.#events.shootBulletEvent) {
+      this.#events.shootBulletEvent.remove();
     }
 
     setTimeout(() => {
