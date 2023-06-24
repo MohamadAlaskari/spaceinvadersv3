@@ -13,6 +13,7 @@ export class MainScene extends Phaser.Scene {
     meteors: null,
     luminary: null,
   };
+  #luminaries;
   #state;
   #player;
   #cursors;
@@ -53,7 +54,7 @@ export class MainScene extends Phaser.Scene {
   }
   create() {
 
-    this.#loadBackground();
+    this.#createBackground();
 
     this.#player = Ship.create(this, "player-1");
 
@@ -98,6 +99,8 @@ export class MainScene extends Phaser.Scene {
       callback: this.#shootBulletFromEnemy,
       callbackScope: this,
     });
+    this.time.addEvent({ delay: 10000, callback: this.#createLuminary, callbackScope: this, loop: true });
+
 
   }
   update() {
@@ -171,8 +174,11 @@ export class MainScene extends Phaser.Scene {
     this.load.audio("explosionSound", "assets/sounds/explosion2.mp3");
     this.load.audio("monsterHit", "assets/sounds/explosion.mp3");
     this.load.audio("monsterExplosion", "assets/sounds/bad-explosion.mp3");
+    //background
     this.load.image("stars", "assets/images/background/stars.png");
     this.load.image("meteors", "assets/images/background/meteors.png");
+    this.load.image('luminary', 'assets/images/background/luminary.png');
+
   }
 
   #handleCursors(playerFigur, velocity) {
@@ -241,7 +247,7 @@ export class MainScene extends Phaser.Scene {
     });
   }
 
-  #loadBackground() {
+  #createBackground() {
     const [width, height] = getWindowWidthAndHeight();
 
     this.#background.stars = this.add
@@ -249,6 +255,9 @@ export class MainScene extends Phaser.Scene {
       .setOrigin(0)
       .setScrollFactor(0.5);
     this.#background.meteors = this.physics.add.sprite(width, 0, 'meteors').setScale(0.3);
+    this.luminaries = this.physics.add.group();
+
+
   }
 
   #moveMeteors() {
@@ -261,6 +270,24 @@ export class MainScene extends Phaser.Scene {
       this.#background.meteors.x = width;
       this.#background.meteors.y = 0;
     }
+  }
+  #createLuminary() {/*
+    var x = Phaser.Math.Between(0, this.game.config.width);
+    var luminary = this.luminaries.create(x, 0, 'luminary');
+    luminary.setScale(0.2);
+    luminary.setVelocityY(Phaser.Math.Between(300, 400));
+    luminary.setAngularVelocity(Phaser.Math.Between(-200, 200));
+*/
+const [width, height] = getWindowWidthAndHeight();
+const x = Phaser.Math.Between(0, width);
+const luminary = this.luminaries.create(x, 0, 'luminary');
+luminary.setScale(0.2);
+const speed = Phaser.Math.Between(50, 100);
+const direction = Math.random() < 0.5 ? -1 : 1;
+luminary.setVelocityY(speed);
+luminary.setVelocityX(speed * direction);
+luminary.setAngularVelocity(Phaser.Math.Between(-200, 200));
+
   }
 
   #shootBullet() {
