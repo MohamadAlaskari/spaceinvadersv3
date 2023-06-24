@@ -329,29 +329,17 @@ export class MainScene extends Phaser.Scene {
     // this.#endGame();
   }
   #endGame() {
+
     if (this.#Colliders.playerEnemiescollision || this.#Colliders.playerEnemyBulletsCollision) {
       this.#state = "game_over";
       this.#showTextCenter("game Over !");
-      this.physics.pause();
-
-      // Stop the ongoing events
-      if (this.#events.createEnemyEvent) {
-        this.#events.createEnemyEvent.remove();
-      }
-
-      if (this.#events.shootBulletEvent) {
-        this.#events.shootBulletEvent.remove();
-      }
-
-      setTimeout(() => {
-        this.scene.switch("gameEndeScene");
-      }, 3000);
     } else if (this.#score >= MAX_SCORE && this.#monsterLifeTimeCounter === Monsterlifetime) {
-
+      this.#state = "you_Win";
       this.#showTextCenter('You Win !\n your score is ' + this.#score);
-      this.physics.pause();
 
-      // Stop the ongoing events
+    }
+    if (this.#state === 'game_over' || this.#state === "you_Win") {
+      this.physics.pause();
       if (this.#events.createEnemyEvent) {
         this.#events.createEnemyEvent.remove();
       }
@@ -363,11 +351,45 @@ export class MainScene extends Phaser.Scene {
       setTimeout(() => {
         this.scene.switch("gameEndeScene");
       }, 3000);
-
-      return;
     }
-    return;
 
+
+    /*
+        if (this.#Colliders.playerEnemiescollision || this.#Colliders.playerEnemyBulletsCollision) {
+          this.#state = "game_over";
+          this.#showTextCenter("game Over !");
+          this.physics.pause();
+    
+          // Stop the ongoing events
+          if (this.#events.createEnemyEvent) {
+            this.#events.createEnemyEvent.remove();
+          }
+    
+          if (this.#events.shootBulletEvent) {
+            this.#events.shootBulletEvent.remove();
+          }
+    
+          setTimeout(() => {
+            this.scene.switch("gameEndeScene");
+          }, 3000);
+        } else if (this.#score >= MAX_SCORE && this.#monsterLifeTimeCounter === Monsterlifetime) {
+    
+          this.#showTextCenter('You Win !\n your score is ' + this.#score);
+          this.physics.pause();
+    
+          // Stop the ongoing events
+          if (this.#events.createEnemyEvent) {
+            this.#events.createEnemyEvent.remove();
+          }
+    
+          if (this.#events.shootBulletEvent) {
+            this.#events.shootBulletEvent.remove();
+          }
+    
+          setTimeout(() => {
+            this.scene.switch("gameEndeScene");
+          }, 3000);
+    */
   }
   #moveMonsterr() {
     if (this.#monster && (this.#monster.body.blocked.left || this.#monster.body.blocked.right)) {
