@@ -271,22 +271,15 @@ export class MainScene extends Phaser.Scene {
       this.#background.meteors.y = 0;
     }
   }
-  #createLuminary() {/*
-    var x = Phaser.Math.Between(0, this.game.config.width);
-    var luminary = this.luminaries.create(x, 0, 'luminary');
-    luminary.setScale(0.2);
-    luminary.setVelocityY(Phaser.Math.Between(300, 400));
+  #createLuminary() {
+    const [width, height] = getWindowWidthAndHeight();
+    const x = Phaser.Math.Between(0, width);
+    const luminary = this.luminaries.create(x, -10, 'luminary').setScale(0.2);
+    const speed = Phaser.Math.Between(50, 100);
+    const direction = Math.random() < 0.5 ? -1 : 1;
+    luminary.setVelocityY(speed);
+    luminary.setVelocityX(speed * direction);
     luminary.setAngularVelocity(Phaser.Math.Between(-200, 200));
-*/
-const [width, height] = getWindowWidthAndHeight();
-const x = Phaser.Math.Between(0, width);
-const luminary = this.luminaries.create(x, 0, 'luminary');
-luminary.setScale(0.2);
-const speed = Phaser.Math.Between(50, 100);
-const direction = Math.random() < 0.5 ? -1 : 1;
-luminary.setVelocityY(speed);
-luminary.setVelocityX(speed * direction);
-luminary.setAngularVelocity(Phaser.Math.Between(-200, 200));
 
   }
 
