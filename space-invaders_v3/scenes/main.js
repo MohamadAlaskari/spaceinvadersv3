@@ -550,7 +550,7 @@ export class MainScene extends Phaser.Scene {
   #createEnemy() {
     Enemy.create(
       this.#enemies,
-      0.2 / (4 / 4 + 1),
+      0.2 / (this.#level / 4),
       50 * (this.#level / 2 + 1),
       `enemy-${this.#level}`
     );
