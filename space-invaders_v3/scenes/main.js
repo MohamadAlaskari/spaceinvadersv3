@@ -43,7 +43,6 @@ export class MainScene extends Phaser.Scene {
     });
   }
   preload() {
-    localStorage.setItem('scores', JSON.stringify([]));
     this.#loadAssets();
     this.#cursors = this.input.keyboard.createCursorKeys();
     this.#spaceClick = this.input.keyboard.addKey("space");
@@ -551,7 +550,7 @@ export class MainScene extends Phaser.Scene {
   #createEnemy() {
     Enemy.create(
       this.#enemies,
-      0.2 / (this.#level / 3),
+      0.2 / (4 / 4 + 1),
       50 * (this.#level / 2 + 1),
       `enemy-${this.#level}`
     );
