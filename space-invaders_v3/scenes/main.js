@@ -27,7 +27,6 @@ export class MainScene extends Phaser.Scene {
   };
   #bullets;
   #bulletsEnemies;
-  #bulletTypeCounter = 1
   #enemies;
   #monster;
   #monsterLifeTimeCounter = 0;
@@ -104,8 +103,8 @@ export class MainScene extends Phaser.Scene {
 
   }
   update() {
-
-    this.#background.stars.tilePositionY += this.#bulletTypeCounter
+    this.#increaseLevel();
+    this.#background.stars.tilePositionY += this.#level
     this.#moveMeteors();
     if (this.#state === 'game_over') {
       return;
@@ -277,7 +276,7 @@ export class MainScene extends Phaser.Scene {
   }
 
   #shootBullet() {
-    Bullet.create(this.#bullets, this.#player.x, this.#player.y, 0.9, -1000, `bullet${Math.min(this.#bulletTypeCounter, 4)}`)
+    Bullet.create(this.#bullets, this.#player.x, this.#player.y, 0.9, -1000, `bullet${Math.min(this.#level, 4)}`)
   }
 
   #createExplosionAnimations() {
@@ -475,11 +474,12 @@ export class MainScene extends Phaser.Scene {
   }
 
   #increaseLevel() {
-    if (this.#level <= 4) {
+    if (this.#level < 4 && this.#score % LEVEL_SCORE == 0 && this.#score != 0) {
       this.#level += 1;
       this.#levelText.setText(`Level: ${this.#level}`)
     }
   }
+
   #bulletEnemyplayerCollision(bulletEnemy, player) {
     this.#sounds.explosion.play();
     bulletEnemy.disableBody(true, false);
@@ -503,7 +503,6 @@ export class MainScene extends Phaser.Scene {
     );
     this.#createBubbleUpdatePlayer();
     this.#addColliders();
-    this.#bulletTypeCounter += 1
   }
 
   #createBubbleUpdatePlayer() {
@@ -637,11 +636,11 @@ export class MainScene extends Phaser.Scene {
       // Bubble-Update-Player-Objekt an den zufälligen Koordinaten platzieren
       this.#bubbleUpdatePlayer.setPosition(randomX, randomY);
       this.#bubbleUpdatePlayer.visible = true;
-      this.#increaseLevel();
       this.#increaseScore();
     } else {
       this.#bubbleUpdatePlayer.visible = false
     }
+
   }
 
 }
