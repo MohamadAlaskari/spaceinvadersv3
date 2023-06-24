@@ -11,9 +11,8 @@ export class MainScene extends Phaser.Scene {
   #background = {
     stars: null,
     meteors: null,
-    luminary: null,
+    luminaries: null,
   };
-  #luminaries;
   #state;
   #player;
   #cursors;
@@ -247,7 +246,7 @@ export class MainScene extends Phaser.Scene {
       .setOrigin(0)
       .setScrollFactor(0.5);
     this.#background.meteors = this.physics.add.sprite(width, 0, 'meteors').setScale(0.3);
-    this.luminaries = this.physics.add.group();
+    this.#background.luminaries = this.physics.add.group();
 
 
   }
@@ -266,7 +265,7 @@ export class MainScene extends Phaser.Scene {
   #createLuminary() {
     const [width, height] = getWindowWidthAndHeight();
     const x = Phaser.Math.Between(0, width);
-    const luminary = this.luminaries.create(x, -10, 'luminary').setScale(0.2);
+    const luminary = this.#background.luminaries.create(x, -10, 'luminary').setScale(0.2);
     const speed = Phaser.Math.Between(50, 100);
     const direction = Math.random() < 0.5 ? -1 : 1;
     luminary.setVelocityY(speed);
