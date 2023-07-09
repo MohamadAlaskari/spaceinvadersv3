@@ -20,27 +20,32 @@ export class GameEndeScene extends Phaser.Scene {
     create() {
         // Text hinzufügen
         this.add.text(CENTER_WIDTH, CENTER_HEIGHT - 40, 'End of Game', {
-            fontSize: '92px',
+            fontSize: '18vmin',
+            fontFamily: 'Georgia',
             fill: '#fff',
         }).setOrigin(0.5);
 
         // Buttons hinzufügen
-        let titleButton = this.add.text(CENTER_WIDTH, CENTER_HEIGHT + 125, 'Replay', {
-            fontSize: '24px',
+        let homeButton = this.add.text(CENTER_WIDTH, CENTER_HEIGHT + 100, 'Home', {
+            fontSize: '3vmin',
+            fontFamily: 'Tahoma',
             fill: '#fff',
         }).setOrigin(0.5);
 
-        let reloadButton = this.add.text(CENTER_WIDTH, CENTER_HEIGHT + 75, 'Home', {
-            fontSize: '24px',
-            fill: '#fff'
+        let replayButton = this.add.text(CENTER_WIDTH, CENTER_HEIGHT + 160, 'Replay', {
+            fontSize: '3vmin',
+            fontFamily: 'Tahoma',
+            fill: '#fff',
         }).setOrigin(0.5);
 
-        // Button-Callbacks hinzufügen
-        titleButton.setInteractive({ useHandCursor: true });
-        titleButton.on('pointerdown', () => this.scene.switch("splashScene"));
 
-        reloadButton.setInteractive({ useHandCursor: true });
-        reloadButton.on('pointerdown', () => location.reload());
+
+        // Button-Callbacks hinzufügen
+        replayButton.setInteractive({ useHandCursor: true });
+        replayButton.on('pointerdown', () => this.scene.start("splashScene"));
+
+        homeButton.setInteractive({ useHandCursor: true });
+        homeButton.on('pointerdown', () => location.reload());
     };
     update(time, delta) {
 

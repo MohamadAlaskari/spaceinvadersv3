@@ -12,16 +12,16 @@ export class SplashScene extends Phaser.Scene {
     }
     init() {
         this.cameras.main.setBackgroundColor('#ff000000')
-
-
     }
+
     preload() {
 
     };
     create() {
         // Text hinzufügen
         this.add.text(CENTER_WIDTH, CENTER_HEIGHT, 'Spaceinvaders', {
-            fontSize: '82px',
+            fontSize: '14vmin',
+            fontFamily: 'Georgia',
             fill: '#fff',
         }).setOrigin(0.5);
 
