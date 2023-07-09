@@ -485,7 +485,7 @@ export class MainScene extends Phaser.Scene {
 
   #bulletMonsterCollision(bullet, monster) {
     this.#increaseScore();
-    bullet.destroy();
+   // bullet.destroy();
     if (this.#monsterLifeTimeCounter == Monsterlifetime) {
       monster.disableBody(true, true);
       this.#sounds.monsterExplosion.play();
