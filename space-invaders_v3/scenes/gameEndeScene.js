@@ -1,4 +1,6 @@
 import * as Phaser from "phaser";
+import { config } from '../utils/config';
+import { game } from '../main';
 import { getWindowWidthAndHeight } from "../utils/utils";
 
 const [width, height] = getWindowWidthAndHeight();
@@ -45,7 +47,7 @@ export class GameEndeScene extends Phaser.Scene {
 
         // Button-Callbacks hinzufügen
         this.#replayButton.setInteractive({ useHandCursor: true });
-        this.#replayButton.on('pointerdown', () => this.scene.start("splashScene"));
+        this.#replayButton.on('pointerdown', () => this.scene.start("splashScene"),/* game()*/);
 
         this.#homeButton.setInteractive({ useHandCursor: true });
         this.#homeButton.on('pointerdown', () => location.reload());

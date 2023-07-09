@@ -1,7 +1,8 @@
+const MAX_LEVEL = 4;
 export const LEVEL_SCORE = 15;
-export const MAX_SCORE = LEVEL_SCORE * 4;
+export const MAX_SCORE = LEVEL_SCORE * MAX_LEVEL;
 export const Monsterlifetime = 10;
-export const Monstershow = 1;
+export const Monstershow = 4;
 
 export const PLAYERS = [
   "assets/images/player/level1_player1.png",

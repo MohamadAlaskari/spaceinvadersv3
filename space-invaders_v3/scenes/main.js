@@ -37,6 +37,7 @@ export class MainScene extends Phaser.Scene {
   #level = 1;
   #monsterLebenText;
   #monsterLeben = Monsterlifetime;
+  #showMonstercheck = false;
   #events = {
     createEnemyEvent: null,
     shootBulletEvent: null,
@@ -95,8 +96,7 @@ export class MainScene extends Phaser.Scene {
     this.#createBubbleUpdatePlayer()
 
 
-    this.#monster = this.physics.add.sprite(-200, -200, 'monster');
-    this.#monster.setCollideWorldBounds(true);
+    this.#monster = this.physics.add.sprite(-1000, -900, 'monster');
     this.#monster.visible = false;
 
 
@@ -389,7 +389,7 @@ export class MainScene extends Phaser.Scene {
     explosion.play("explode");
   }
   #playerMonsterCollision(player, monster) {
-    if (!this.#monster.visible) {
+    if (!this.#showMonstercheck) {
       return
     }
     this.#sounds.explosion.play();
@@ -445,50 +445,50 @@ export class MainScene extends Phaser.Scene {
     }
   }
   #moveMonster() {
-    if (!this.#monster) {
-      return;
-    }
 
-    const playerX = this.#player.x;
-    const playerY = this.#player.y;
-    const monsterX = this.#monster.x;
-    const monsterY = this.#monster.y;
-
-    let velocityX = 0;
-    let velocityY = 100;
-
-    // Das Monster bewegt sich horizontal, wie player
-    if (playerX > monsterX) {
-      velocityX = 200;
-    } else if (playerX < monsterX) {
-      velocityX = -200;
-    }
-
-    // Das Monster bewegt sich vertikal, um einen Mindestabstand vom Spieler zu beibehalten
     /*
-        const minDistance = 200;
-        let distancePlayerMonster = monsterY - playerY;
-        if (distancePlayerMonster > minDistance) {
-          velocityY = 200;
-        } else {
-          velocityY = 200;
+        if (this.#monster.body.blocked.left) {
+          this.#monster.setVelocityX(velocityX);
+        }
+        if (this.#monster.body.blocked.right) {
+          this.#monster.setVelocityX(-velocityX);
+        } if (this.#monster.body.blocked.up) {
+          this.#monster.setVelocityY(velocityY);
+        } if (this.#monster.body.blocked.down) {
+          this.#monster.setVelocityY(-velocityY);
         }
     */
 
+    const [width, height] = getWindowWidthAndHeight();
+    if (!this.#showMonstercheck) {
+      return;
+    }
+    this.#monster.setCollideWorldBounds(true);
+
+    var velocityX = 0;
+    var velocityY = 0;
+
+    // Das Monster bewegt sich horizontal, wie player
+    if (this.#player.x > this.#monster.x) {
+      velocityX = 100;
+    } else if (this.#player.x < this.#monster.x) {
+      velocityX = -100;
+    }
+
+    // Wenn der Spieler nach oben geht, folgt das Monster, solange es nicht die Mitte des Bildschirms überschreitet
+    if (this.#monster.body.blocked.up) {
+      this.#monster.setVelocityY(150);
+
+    } else if (this.#monster.y >= height / 3) {
+      // Wenn das Monster die Mitte des Bildschirms überschreitet, geht es nach unten
+      this.#monster.setVelocityY(-100);
+
+    } else if (this.#player.y <= this.#monster.y) {
+      // Das Monster bewegt sich nicht vertikal, wenn der Spieler nach unten geht
+      this.#monster.setVelocityY(0);
+    }
+
     this.#monster.setVelocityX(velocityX);
-    this.#monster.setVelocityY(velocityY);
-
-    if (this.#monster.body.blocked.left) {
-      this.#monster.setVelocityX(velocityX);
-    }
-    if (this.#monster.body.blocked.right) {
-      this.#monster.setVelocityX(-velocityX);
-    } if (this.#monster.body.blocked.up) {
-      this.#monster.setVelocityY(velocityY);
-    } if (this.#monster.body.blocked.down) {
-      this.#monster.setVelocityY(-velocityY);
-    }
-
 
   }
 
@@ -504,27 +504,22 @@ export class MainScene extends Phaser.Scene {
   }
 
   #bulletMonsterCollision(bullet, monster) {
-    if (!this.#monster.visible) {
+    if (!this.#showMonstercheck) {
       return
     }
+    // bullet.disableBody(true.true)
     this.#increaseScore();
-    // bullet.destroy();
     if (this.#monsterLifeTimeCounter == Monsterlifetime) {
       monster.disableBody(true, true);
       this.#sounds.monsterExplosion.play();
     }
-
-    if (this.#monsterLifeTimeCounter < Monsterlifetime) {
-      this.#monsterLifeTimeCounter += 1;
-      this.#monsterlebendecrease();
-    }
-
   }
 
   #check(bullet, monster) {
-    if (this.#monster.visible) {
+    if (!this.#showMonstercheck) {
       return
     }
+
     this.#sounds.monsterHit.play();
     const explosion = this.add.sprite(this.#monster.x, this.#monster.y, "explosion");
     explosion.play("explode");
@@ -533,6 +528,10 @@ export class MainScene extends Phaser.Scene {
       this.#monster.clearTint()
     }, 200);
 
+    if (this.#monsterLifeTimeCounter < Monsterlifetime) {
+      this.#monsterLifeTimeCounter += 1;
+      this.#monsterlebendecrease();
+    }
 
   }
 
@@ -686,6 +685,7 @@ export class MainScene extends Phaser.Scene {
     if (this.#level === Monstershow) {
       if (!this.#monster.visible) {
         this.#monster.visible = true;
+        this.#showMonstercheck = true;
       }
     }
   }

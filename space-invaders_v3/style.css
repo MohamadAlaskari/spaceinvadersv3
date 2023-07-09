@@ -162,7 +162,9 @@ h1 {
 }
 
 #start-game:hover {
-	transform: translate(-50%, -50%) scale(1.2);
+	transform: translate(-50%, -50%) scale(1.3);
+	
+
 }
 
 @keyframes leftMove {
@@ -173,14 +175,14 @@ h1 {
 
 @keyframes slide-in-y {
 	from {
-		transform: translateY(20px);
+		transform: translateY(30px);
 		opacity: 0;
 	}
 }
 
 @keyframes slide-upDown-y {
 	from {
-		transform: translateY(-20px);
+		transform: translateY(-30px);
 		opacity: 0;
 	}
 }

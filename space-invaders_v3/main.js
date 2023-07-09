@@ -7,14 +7,14 @@ import { GameEndeScene } from './scenes/gameEndeScene';
 
 
 
- class Game extends Phaser.Game {
+class Game extends Phaser.Game {
   constructor(config) {
     super(config);
   }
 }
 
 
-function game() {
+export function game() {
   var game = new Game(config);
   game.scene.add('splashScene', SplashScene);
   game.scene.add('mainScene', MainScene);
