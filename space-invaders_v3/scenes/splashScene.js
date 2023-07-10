@@ -36,8 +36,8 @@ export class SplashScene extends Phaser.Scene {
 
         // Flugzeuge hinzufügen
         const ship1 = this.add.image(CENTER_WIDTH, CENTER_HEIGHT - 150, 'ship1').setScale(1.5);
-        const ship2 = this.add.image(CENTER_WIDTH - 600, CENTER_HEIGHT, 'ship2');
-        const ship3 = this.add.image(CENTER_WIDTH + 600, CENTER_HEIGHT, 'ship3');
+        const ship2 = this.add.image(CENTER_WIDTH - 400, CENTER_HEIGHT, 'ship2');
+        const ship3 = this.add.image(CENTER_WIDTH + 400, CENTER_HEIGHT, 'ship3');
         // Flugzeuge nach oben bewegen
         this.tweens.add({
             targets: [ship1, ship2, ship3],

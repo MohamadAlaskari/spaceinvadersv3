@@ -16,7 +16,6 @@ export class GameEndeScene extends Phaser.Scene {
         super({ key: "gameEndeScene" })
     }
     init() {
-        console.log("hier ist gameEndeScene ")
         this.cameras.main.setBackgroundColor('#ff000000')
     }
     preload() {

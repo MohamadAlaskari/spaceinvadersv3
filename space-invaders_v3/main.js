@@ -21,7 +21,7 @@ export function game() {
   game.scene.add('gameEndeScene', GameEndeScene);
 
   //game start
-  game.scene.start('splashScene');
+  game.scene.start('mainScene');
 }
 
 document.getElementById('start-game').addEventListener('click', (e) => {
