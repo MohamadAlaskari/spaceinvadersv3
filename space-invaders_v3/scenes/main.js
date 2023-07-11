@@ -209,7 +209,8 @@ export class MainScene extends Phaser.Scene {
     }
     if (Phaser.Input.Keyboard.JustDown(this.#Rclick) && this.#rocketPlayerCounnt > 0) {
       this.#shootRocket();
-      this.#rocketPlayerCounnt -= 1;
+      this.#rocketPlayerCounnt --
+      console.log("rocketPlayerCounnt:-=1 R", this.#rocketPlayerCounnt)
     }
   }
 
@@ -501,12 +502,13 @@ export class MainScene extends Phaser.Scene {
     }
 
     this.#bullet.disableBody(true, true);
+
     if (this.#monsterLife == 0) {
-      this.#monster.disableBody(true, true)
       this.#sounds.monsterExplosion.play();
       this.#sounds.monsterHit.play();
       this.#monster.setTint(0xff0000);
       console.log("monsterLife: ", this.#monsterLife);
+      this.#monster.disableBody(true, true)
     }
   }
 
@@ -561,7 +563,9 @@ export class MainScene extends Phaser.Scene {
     this.#bubbleRocket.disableBody(true, true);
     this.#createBubbleRocket();
     this.#addColliders();
-    this.#rocketPlayerCounnt = +1;
+    this.#rocketPlayerCounnt += 1;
+    console.log("rocketPlayerCounnt:+=1 ", this.#rocketPlayerCounnt)
+
   }
 
 
@@ -623,18 +627,18 @@ export class MainScene extends Phaser.Scene {
 
     // Das Monster bewegt sich horizontal, wie player
     if (this.#player.x > this.#monster.x) {
-      velocityX = 100;
+      velocityX = 150;
     } else if (this.#player.x < this.#monster.x) {
-      velocityX = -100;
+      velocityX = -150;
     }
 
     // Wenn der Spieler nach oben geht, folgt das Monster, solange es nicht die Mitte des Bildschirms überschreitet
     if (this.#monster.body.blocked.up) {
-      this.#monster.setVelocityY(150);
+      this.#monster.setVelocityY(130);
 
     } else if (this.#monster.y >= height / 3) {
       // Wenn das Monster die Mitte des Bildschirms überschreitet, geht es nach unten
-      this.#monster.setVelocityY(-100);
+      this.#monster.setVelocityY(-175);
 
     } else if (this.#player.y <= this.#monster.y) {
       // Das Monster bewegt sich nicht vertikal, wenn der Spieler nach unten geht
@@ -738,7 +742,7 @@ export class MainScene extends Phaser.Scene {
       return;
 
     } else if (this.#showMonstercheck) {
-      if (this.#score - (MAX_SCORE - 58) == 0 || this.#score - (MAX_SCORE - 53) == 0) {
+      if (this.#score - (MAX_SCORE - LEVEL_SCORE) == 0 || this.#score - (MAX_SCORE - (LEVEL_SCORE / 2)) == 0) {
 
 
         // Zufällige Koordinaten generieren
