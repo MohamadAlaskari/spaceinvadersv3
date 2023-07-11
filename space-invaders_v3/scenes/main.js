@@ -740,8 +740,8 @@ export class MainScene extends Phaser.Scene {
     if (!this.#showMonstercheck || this.#bubbleRocket.visible) {
       return;
 
-    } else if (this.#showMonstercheck && this.#level == MAX_LEVEL) {
-      if (this.#score - (MAX_SCORE - LEVEL_SCORE) == 0 || this.#score - (MAX_SCORE - (LEVEL_SCORE / 2)) == 0) {
+    } else if (this.#showMonstercheck) {
+      if (this.#score == 46 || this.#score == 52 ) {
 
 
         // Zufällige Koordinaten generieren
