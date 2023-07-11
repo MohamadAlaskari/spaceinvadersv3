@@ -1,5 +1,5 @@
 import * as Phaser from "phaser";
-import { ENEMIES, PLAYERS, BULLETS, BUBBLES_UPDATE_PLAYER, LEVEL_SCORE, MAX_SCORE, MONSTER_LIFE_TIME, MONSTER_SHOW } from "../utils/constants";
+import { ENEMIES, PLAYERS, BULLETS, BUBBLES_UPDATE_PLAYER, LEVEL_SCORE, MAX_SCORE, MAX_LEVEL, MONSTER_LIFE_TIME, MONSTER_SHOW } from "../utils/constants";
 import { Ship } from "../module/Ship";
 import { Enemy } from "../module/Enemy";
 import { Bullet } from "../module/Bullet";
@@ -35,7 +35,6 @@ export class MainScene extends Phaser.Scene {
   #bulletsEnemies;
   #enemies;
   #monster;
-  #monsterLifeTimeCounter = 0;
   #bubbleUpdatePlayer;
   #bublleRakete;
   #scoreText;
@@ -478,7 +477,7 @@ export class MainScene extends Phaser.Scene {
     }
   }
   #gameWinhandle() {
-    if (this.#score >= MAX_SCORE && this.#monsterLifeTimeCounter === MONSTER_LIFE_TIME) {
+    if (this.#score >= MAX_SCORE && this.#monsterLife == 0) {
       this.#state = "you_Win";
       this.#showTextCenter('You Win !\n your score is ' + this.#score, '#fff');
 
@@ -541,22 +540,23 @@ export class MainScene extends Phaser.Scene {
     explosion.play("explode");
     this.#increaseScore();
   }
-  #bulletRaketeMonsterCollision(rakete, monster) {
+  #bulletRaketeMonsterCollision(rocket, monster) {
     if (!this.#showMonstercheck) {
       return
     }
 
-    // rakete.disableBody(true, true);
+    // rocket.disableBody(true, true);
 
     if (this.#monsterLife == 0) {
       monster.disableBody(true.true)
       this.#sounds.monsterExplosion.play();
       this.#sounds.monsterHit.play();
       this.#sounds.shootRakete.play();
+      console.log("monsterLife: ", this.#monsterLife);
 
     }
   }
-  #effects(rakete, monster) {
+  #effects(rocket, monster) {
     if (!this.#showMonstercheck) {
       return
     }
@@ -571,9 +571,7 @@ export class MainScene extends Phaser.Scene {
     }, 200);
 
     if (this.#monsterLife == 0) {
-      this.#monsterLifeTimeCounter++;
-      this.#monsterLifeTimeCounter++;
-      this.#monsterLifeTimeCounter++;
+
       this.#monsterlebendecrease();
       this.#monsterlebendecrease();
       this.#monsterlebendecrease();
@@ -588,11 +586,13 @@ export class MainScene extends Phaser.Scene {
     }
 
     //bullet.disableBody(true.true)
-    if (this.#monsterLifeTimeCounter == MONSTER_LIFE_TIME) {
+    if (this.#monsterLife == 0) {
       monster.disableBody(true.true)
       this.#sounds.monsterExplosion.play();
       this.#sounds.monsterHit.play();
       this.#sounds.shootRakete.play();
+      console.log("monsterLife: ", this.#monsterLife);
+
 
 
     }
@@ -613,9 +613,8 @@ export class MainScene extends Phaser.Scene {
     setTimeout(() => {
       this.#monster.clearTint()
     }, 200);
-    if (this.#monsterLifeTimeCounter < MONSTER_LIFE_TIME) {
+    if (this.#monsterLife != 0) {
       this.#increaseScore();
-      this.#monsterLifeTimeCounter++;
       this.#monsterlebendecrease();
     }
   }
@@ -787,19 +786,25 @@ export class MainScene extends Phaser.Scene {
   }
 
   #increaseScore() {
-    this.#score += 1;
-    this.#scoreText.setText(`Score: ${this.#score}`);
+    if (this.#score < MAX_SCORE) {
+
+      this.#score += 1;
+      this.#scoreText.setText(`Score: ${this.#score}`);
+    }
   }
 
   #increaseLevel() {
-    if (this.#level < 4 && this.#score % LEVEL_SCORE == 0 && this.#score != 0) {
+    if (this.#level < MAX_LEVEL && this.#score % LEVEL_SCORE == 0 && this.#score != 0) {
       this.#level += 1;
       this.#levelText.setText(`Level: ${this.#level}`)
     }
   }
   #monsterlebendecrease() {
-    this.#monsterLife -= 1;
-    this.#monsterLebenText.setText(`Monster Leben: ${this.#monsterLife}`)
+    if (this.#monsterLife > 0) {
+
+      this.#monsterLife -= 1;
+      this.#monsterLebenText.setText(`Monster Leben: ${this.#monsterLife}`)
+    }
   }
 
   #resetScene() {
@@ -809,7 +814,6 @@ export class MainScene extends Phaser.Scene {
     this.#level = 1;
     this.#monsterLife = MONSTER_LIFE_TIME;
     this.#UpgradebulletPlayer = 1;
-    this.#monsterLifeTimeCounter = 0;
 
     // Zurücksetzen der Texte
     this.#scoreText.setText('Score: 0');

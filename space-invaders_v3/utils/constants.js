@@ -1,4 +1,4 @@
-const MAX_LEVEL = 4;
+export const MAX_LEVEL = 4;
 export const LEVEL_SCORE = 15;
 export const MAX_SCORE = LEVEL_SCORE * MAX_LEVEL;
 export const MONSTER_LIFE_TIME = 10;
