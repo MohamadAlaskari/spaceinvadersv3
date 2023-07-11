@@ -502,7 +502,7 @@ export class MainScene extends Phaser.Scene {
 
     this.#bullet.disableBody(true, true);
     if (this.#monsterLife == 0) {
-      this.#monster.disableBody(true, true);
+      this.#monster.disableBody(true, true)
       this.#sounds.monsterExplosion.play();
       this.#sounds.monsterHit.play();
       this.#monster.setTint(0xff0000);
@@ -738,7 +738,7 @@ export class MainScene extends Phaser.Scene {
       return;
 
     } else if (this.#showMonstercheck) {
-      if (this.#score - (MAX_SCORE - 58) == 0 || this.#score - (MAX_SCORE - 66) == 0) {
+      if (this.#score - (MAX_SCORE - 58) == 0 || this.#score - (MAX_SCORE - 53) == 0) {
 
 
         // Zufällige Koordinaten generieren
