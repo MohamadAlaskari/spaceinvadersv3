@@ -4,8 +4,9 @@ export class BubbleUpdatePlayer {
     static create(scene, x, y, scale, visible, angularVelocity, bubbleUpdatePlayerType) {
         const bubbleUpdatePlayer = scene.physics.add.sprite(x, y, bubbleUpdatePlayerType);
         bubbleUpdatePlayer.setScale(scale);
-        bubbleUpdatePlayer.setVisible = visible;
+        bubbleUpdatePlayer.setVisible(visible);;
         scene.physics.world.enable(bubbleUpdatePlayer);
         bubbleUpdatePlayer.body.setAngularVelocity(angularVelocity);
+        return bubbleUpdatePlayer;
     }
 }

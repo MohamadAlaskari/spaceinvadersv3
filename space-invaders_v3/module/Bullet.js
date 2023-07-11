@@ -5,5 +5,7 @@ export class Bullet {
         const bullet = bullets.create(x, y, bulletType)
         bullet.setScale(scale);
         bullet.setVelocityY(velocity);
+        return bullet;
     }
+
 }

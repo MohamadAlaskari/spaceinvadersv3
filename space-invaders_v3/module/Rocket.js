@@ -11,6 +11,7 @@ export class Rocket {
             player.y - monster.y
         ).normalize();
         rocket.setVelocity(-direction.x * velocity, -direction.y * velocity);
+        return rocket;
 
 
     }

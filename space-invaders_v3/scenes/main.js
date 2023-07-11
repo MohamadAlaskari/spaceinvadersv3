@@ -5,6 +5,8 @@ import { Enemy } from "../module/Enemy";
 import { Bullet } from "../module/Bullet";
 import { Rocket } from "../module/Rocket"
 import { BubbleUpdatePlayer } from "../module/BubbleUpdatePlayer"
+import { BubbleRocket } from "../module/BubbleRocket"
+
 
 
 import { getWindowWidthAndHeight } from "../utils/utils";
@@ -29,14 +31,16 @@ export class MainScene extends Phaser.Scene {
     monsterExplosion: null
   };
   #bullets;
+  #bullet;
   #rockets;
-  #raketeCount = 0;
+  #rocket;
+  #rocketPlayerCounnt = 0;
   #UpgradebulletPlayer = 1;
   #bulletsEnemies;
   #enemies;
   #monster;
   #bubbleUpdatePlayer;
-  #bublleRakete;
+  #bubbleRocket;
   #scoreText;
   #levelText;
   #score = 0;
@@ -56,6 +60,7 @@ export class MainScene extends Phaser.Scene {
     playerMonsterBulletsCollision: null,
 
   }
+
 
   constructor() {
     super({
@@ -100,7 +105,7 @@ export class MainScene extends Phaser.Scene {
     this.#rockets = this.physics.add.group();
     this.#bulletsEnemies = this.physics.add.group();
 
-    this.#createBublleRakete()
+    this.#createBubbleRocket()
 
     this.#createBubbleUpdatePlayer()
 
@@ -155,7 +160,8 @@ export class MainScene extends Phaser.Scene {
     this.load.image("monster", "assets/images/enemy/monster.png");
     this.load.image("bulletEnemy", "assets/images/enemy/bullet_enemy.png");
     this.load.image("bulletMonster", "assets/images/bullet/bullet_Monster.png");
-    this.load.image("bublleRakete", "assets/images/bullet/raketebubble.png")
+    //rocket
+    this.load.image("bubbleRocket", "assets/images/bullet/bubbleRocket.png")
     this.load.image("rocket", "assets/images/bullet/rakete.png")
 
     this.load.spritesheet(
@@ -201,9 +207,9 @@ export class MainScene extends Phaser.Scene {
 
       this.#sounds.shoot.play();
     }
-    if (Phaser.Input.Keyboard.JustDown(this.#Rclick) && this.#raketeCount > 0) {
+    if (Phaser.Input.Keyboard.JustDown(this.#Rclick) && this.#rocketPlayerCounnt > 0) {
       this.#shootRocket();
-      this.#raketeCount -= 1;
+      this.#rocketPlayerCounnt -= 1;
     }
   }
 
@@ -270,7 +276,7 @@ export class MainScene extends Phaser.Scene {
     });
 
     this.#events.shootBulletEvent = this.time.addEvent({
-      delay: 2000 / this.#level,
+      delay: 8000 / this.#level,
       callback: this.#shootBulletFromEnemy,
       callbackScope: this,
       loop: true
@@ -305,7 +311,7 @@ export class MainScene extends Phaser.Scene {
       this.#rockets,
       this.#monster,
       this.#bulletRaketeMonsterCollision,
-      null,
+      this.#effects,
       this
     );
 
@@ -327,9 +333,9 @@ export class MainScene extends Phaser.Scene {
     );
     this.physics.add.collider(
       this.#player,
-      this.#bublleRakete,
+      this.#bubbleRocket,
       this.#playerBublleRaketeCollision,
-      this.#effects,
+      null,
       this
     );
 
@@ -396,10 +402,10 @@ export class MainScene extends Phaser.Scene {
 
   //player bullet/Rocket
   #shootBullet() {
-    Bullet.create(this.#bullets, this.#player.x, this.#player.y, 0.9, -1000, `bullet${Math.min(this.#UpgradebulletPlayer, 4)}`)
+    this.#bullet = Bullet.create(this.#bullets, this.#player.x, this.#player.y, 0.9, -1000, `bullet${Math.min(this.#UpgradebulletPlayer, 4)}`)
   }
   #shootRocket() {
-    Rocket.create(this.#player, this.#monster, this.#rockets, this.#player.x, this.#player.y, 0.3, 1000, 'rocket')
+    this.#rocket = Rocket.create(this.#player, this.#monster, this.#rockets, this.#player.x, this.#player.y, 0.3, 1000, 'rocket')
     this.#sounds.shootRakete.play();
 
   }
@@ -440,7 +446,6 @@ export class MainScene extends Phaser.Scene {
     explosion.setScale(1.4);
     explosion.play("explode");
   }
-
   #bulletEnemyCollision(bullet, enemy) {
 
     bullet.disableBody(true, true);
@@ -456,10 +461,10 @@ export class MainScene extends Phaser.Scene {
       return
     }
 
-    // rocket.disableBody(true, true);
+    this.#rocket.disableBody(true, true);
 
     if (this.#monsterLife == 0) {
-      monster.disableBody(true.true)
+      this.#monster.disableBody(true, true)
       this.#sounds.monsterExplosion.play();
       this.#sounds.monsterHit.play();
       this.#monster.setTint(0xff0000);
@@ -480,7 +485,7 @@ export class MainScene extends Phaser.Scene {
       this.#monster.clearTint()
     }, 200);
 
-    if (this.#monsterLife == 0) {
+    if (this.#monsterLife != 0) {
 
       this.#monsterlebendecrease();
       this.#monsterlebendecrease();
@@ -495,9 +500,9 @@ export class MainScene extends Phaser.Scene {
       return
     }
 
-    //bullet.disableBody(true.true)
+    this.#bullet.disableBody(true, true);
     if (this.#monsterLife == 0) {
-      monster.disableBody(true.true)
+      this.#monster.disableBody(true, true);
       this.#sounds.monsterExplosion.play();
       this.#sounds.monsterHit.play();
       this.#monster.setTint(0xff0000);
@@ -523,6 +528,7 @@ export class MainScene extends Phaser.Scene {
       this.#increaseScore();
       this.#monsterlebendecrease();
     }
+    this.#addColliders();
   }
 
   #bulletEnemyplayerCollision(bulletEnemy, player) {
@@ -551,11 +557,11 @@ export class MainScene extends Phaser.Scene {
 
     this.#addColliders();
   }
-  #playerBublleRaketeCollision(player, bublleRakete) {
-    this.#bublleRakete.disableBody(true, true);
-    this.#createBublleRakete();
+  #playerBublleRaketeCollision(player, bubbleRocket) {
+    this.#bubbleRocket.disableBody(true, true);
+    this.#createBubbleRocket();
     this.#addColliders();
-    this.#raketeCount = +1;
+    this.#rocketPlayerCounnt = +1;
   }
 
 
@@ -607,19 +613,6 @@ export class MainScene extends Phaser.Scene {
 
   #moveMonster() {
 
-    /*
-        if (this.#monster.body.blocked.left) {
-          this.#monster.setVelocityX(velocityX);
-        }
-        if (this.#monster.body.blocked.right) {
-          this.#monster.setVelocityX(-velocityX);
-        } if (this.#monster.body.blocked.up) {
-          this.#monster.setVelocityY(velocityY);
-        } if (this.#monster.body.blocked.down) {
-          this.#monster.setVelocityY(-velocityY);
-        }
-    */
-
     const [width, height] = getWindowWidthAndHeight();
     if (!this.#showMonstercheck) {
       return;
@@ -654,20 +647,10 @@ export class MainScene extends Phaser.Scene {
 
   #createBubbleUpdatePlayer() {
 
-    this.#bubbleUpdatePlayer = this.physics.add.sprite(-900, -900, "bubbleUpdatePlayer" + (this.#level + 1)).setScale(0.3)
-    this.physics.world.enable(this.#bubbleUpdatePlayer);
-    this.#bubbleUpdatePlayer.body.setAngularVelocity(125);
-    this.#bubbleUpdatePlayer.visible = false;
-
-    //  this.#bubbleUpdatePlayer = BubbleUpdatePlayer.create(this, -400, 200, 0.3, false, 125, "bubbleUpdatePlayer" + (this.#level + 1));
+    this.#bubbleUpdatePlayer = BubbleUpdatePlayer.create(this, -900, -900, 0.3, false, 125, "bubbleUpdatePlayer" + (this.#level + 1));
   }
-  #createBublleRakete() {
-    this.#bublleRakete = this.physics.add.sprite(-900, -900, "bublleRakete");
-    // this.physics.world.enable(this.#bubbleUpdatePlayer);
-    this.#bublleRakete.setScale(0.4)
-    this.#bublleRakete.body.setAngularVelocity(125);
-    this.#bublleRakete.visible = false
-
+  #createBubbleRocket() {
+    this.#bubbleRocket = BubbleRocket.create(this, -900, -900, 0.4, false, 125, "bubbleRocket")
   }
   #createEnemy() {
     Enemy.create(
@@ -751,24 +734,26 @@ export class MainScene extends Phaser.Scene {
   }
   #show_BubbleRocket() {
     // Überprüfen, ob das Bubble-Update-Player-Objekt bereits sichtbar ist
-    if (!this.#showMonstercheck) {
+    if (!this.#showMonstercheck || this.#bubbleRocket.visible) {
       return;
 
     } else if (this.#showMonstercheck) {
+      if (this.#score - (MAX_SCORE - 58) == 0 || this.#score - (MAX_SCORE - 66) == 0) {
 
-      if (this.#score - (MAX_SCORE - 13) == 0 || this.#score - (MAX_SCORE - 7) == 0) {
-        // 
+
         // Zufällige Koordinaten generieren
         const [width, height] = getWindowWidthAndHeight();
         var randomX = Phaser.Math.Between(100, width - 100);
         var randomY = Phaser.Math.Between(200, height - 100);
         // Bubble-Update-Player-Objekt an den zufälligen Koordinaten platzieren
-        this.#bublleRakete.setPosition(randomX, randomY);
-        this.#bublleRakete.visible = true;
+        this.#bubbleRocket.setPosition(randomX, randomY);
+        this.#bubbleRocket.visible = true;
+
         this.#increaseScore();
+
       }
     } else {
-      // this.#bublleRakete.visible = false
+      this.#bubbleRocket.visible = false
 
     }
 
@@ -806,52 +791,6 @@ export class MainScene extends Phaser.Scene {
     }
   }
 
-  #resetScene() {
-    // Zurücksetzen der Variablen auf ihre ursprünglichen Werte
-    this.#state = undefined;
-    this.#score = 0;
-    this.#level = 1;
-    this.#monsterLife = MONSTER_LIFE_TIME;
-    this.#UpgradebulletPlayer = 1;
 
-    // Zurücksetzen der Texte
-    this.#scoreText.setText('Score: 0');
-    this.#levelText.setText('Level: 1');
-    this.#monsterLebenText.setText('Monster Leben: 10');
-
-    // Zurücksetzen der Objekte
-    this.#player.enableBody(true, this.#player.x, this.#player.y, true, true);
-    this.#player.clearTint();
-    this.createEnemies();
-    this.#enemies.clear(true, true);
-    this.#bullets.clear(true, true);
-    this.#bulletsEnemies.clear(true, true);
-
-    if (this.#monster.visible) {
-      this.#monster.disableBody(true, true);
-      this.#monster.visible = false;
-      this.#monster.clearTint();
-    }
-
-    // Zurücksetzen der Kollisionshandler
-    this.#Colliders.playerEnemiescollision.collided = false;
-    this.#Colliders.playerEnemiesBulletsCollision.collided = false;
-    this.#Colliders.playerMonsterCollision.collided = false;
-    this.#Colliders.playerMonsterBulletsCollision.collided = false;
-
-    // Wiederherstellen der Events
-    if (this.#events.createEnemyEvent) {
-      this.#events.createEnemyEvent.paused = false;
-    }
-    if (this.#events.shootBulletEvent) {
-      this.#events.shootBulletEvent.paused = false;
-    }
-    if (this.#events.createLuminaryEvent) {
-      this.#events.createLuminaryEvent.paused = false;
-    }
-
-    // Fortsetzen der Physiksimulation
-    this.physics.resume();
-  }
 
 }
