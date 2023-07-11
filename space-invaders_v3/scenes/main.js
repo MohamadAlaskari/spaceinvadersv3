@@ -650,7 +650,6 @@ export class MainScene extends Phaser.Scene {
   }
 
   #createBubbleUpdatePlayer() {
-
     this.#bubbleUpdatePlayer = BubbleUpdatePlayer.create(this, -900, -900, 0.3, false, 125, "bubbleUpdatePlayer" + (this.#level + 1));
   }
   #createBubbleRocket() {
@@ -741,8 +740,8 @@ export class MainScene extends Phaser.Scene {
     if (!this.#showMonstercheck || this.#bubbleRocket.visible) {
       return;
 
-    } else if (this.#showMonstercheck) {
-      if (this.#score - (MAX_SCORE - LEVEL_SCORE) == 0 || this.#score - (MAX_SCORE - (LEVEL_SCORE / 2)) == 0) {
+    } else if (this.#showMonstercheck && this.#level == MAX_LEVEL) {
+      if ( this.#score - (MAX_SCORE - LEVEL_SCORE) == 0 || this.#score - (MAX_SCORE - (LEVEL_SCORE / 2)) == 0) {
 
 
         // Zufällige Koordinaten generieren
