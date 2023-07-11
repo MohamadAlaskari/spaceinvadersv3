@@ -133,7 +133,7 @@ export class MainScene extends Phaser.Scene {
 
     this.#handleCursors(this.#player, 450 + (this.#level - 1) * 50);
     this.#show_BubbleUpgradePlayer();
-    this.#show_BubbleRakete();
+    this.#show_BubbleRocket();
     this.#monsterLebenText.visible = this.#monster.visible;
   }
 
@@ -462,9 +462,8 @@ export class MainScene extends Phaser.Scene {
       monster.disableBody(true.true)
       this.#sounds.monsterExplosion.play();
       this.#sounds.monsterHit.play();
-      this.#sounds.shootRakete.play();
+      this.#monster.setTint(0xff0000);
       console.log("monsterLife: ", this.#monsterLife);
-
     }
   }
   #effects(rocket, monster) {
@@ -476,7 +475,7 @@ export class MainScene extends Phaser.Scene {
 
     const explosion = this.add.sprite(this.#monster.x, this.#monster.y, "explosion");
     explosion.play("explode");
-    this.#monster.setTint(0xff00000);
+    this.#monster.setTint(0xff0000);
     setTimeout(() => {
       this.#monster.clearTint()
     }, 200);
@@ -501,13 +500,9 @@ export class MainScene extends Phaser.Scene {
       monster.disableBody(true.true)
       this.#sounds.monsterExplosion.play();
       this.#sounds.monsterHit.play();
-      this.#sounds.shootRakete.play();
+      this.#monster.setTint(0xff0000);
       console.log("monsterLife: ", this.#monsterLife);
-
-
-
     }
-
   }
 
   #check(bullet, monster) {
@@ -520,7 +515,7 @@ export class MainScene extends Phaser.Scene {
 
     const explosion = this.add.sprite(this.#monster.x, this.#monster.y, "explosion");
     explosion.play("explode");
-    this.#monster.setTint(0xff00000);
+    this.#monster.setTint(0xff0000);
     setTimeout(() => {
       this.#monster.clearTint()
     }, 200);
@@ -754,14 +749,14 @@ export class MainScene extends Phaser.Scene {
     }
 
   }
-  #show_BubbleRakete() {
+  #show_BubbleRocket() {
     // Überprüfen, ob das Bubble-Update-Player-Objekt bereits sichtbar ist
     if (!this.#showMonstercheck) {
       return;
 
     } else if (this.#showMonstercheck) {
 
-      if (this.#score - (MAX_SCORE - 58) == 0 || this.#score - (MAX_SCORE - 40) == 0) {
+      if (this.#score - (MAX_SCORE - 13) == 0 || this.#score - (MAX_SCORE - 7) == 0) {
         // 
         // Zufällige Koordinaten generieren
         const [width, height] = getWindowWidthAndHeight();
