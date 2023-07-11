@@ -394,7 +394,7 @@ export class MainScene extends Phaser.Scene {
     }
   }
 
-
+  //player bullet/Rocket
   #shootBullet() {
     Bullet.create(this.#bullets, this.#player.x, this.#player.y, 0.9, -1000, `bullet${Math.min(this.#UpgradebulletPlayer, 4)}`)
   }
@@ -416,7 +416,7 @@ export class MainScene extends Phaser.Scene {
       hideOnComplete: true,
     });
   }
-
+  //colissions
   #playerEnemyCollision(player, enemy) {
     this.#sounds.explosion.play();
     player.disableBody(true, false);
@@ -439,95 +439,6 @@ export class MainScene extends Phaser.Scene {
     const explosion = this.add.sprite(player.x, player.y, "explosion");
     explosion.setScale(1.4);
     explosion.play("explode");
-  }
-  // ende game handle
-  #endGame() {
-    this.#gameOverhandle();
-    this.#gameWinhandle();
-    if (this.#state === 'game_over' || this.#state === "you_Win") {
-      this.physics.pause();
-
-      if (this.#events.createEnemyEvent) {
-        this.#events.createEnemyEvent.remove();
-      }
-
-      if (this.#events.shootBulletEvent) {
-        this.#events.shootBulletEvent.remove();
-      }
-      if (this.#events.createLuminaryEvent) {
-        this.#events.createLuminaryEvent.remove();
-      }
-
-      setTimeout(() => {
-        this.scene.switch("gameEndeScene");
-      }, 4000);
-    }
-
-
-
-  }
-  #gameOverhandle() {
-    if ((this.#Colliders.playerEnemiescollision && this.#Colliders.playerEnemiescollision.collided) ||
-      (this.#Colliders.playerEnemiesBulletsCollision && this.#Colliders.playerEnemiesBulletsCollision.collided) ||
-      (this.#Colliders.playerMonsterCollision && this.#Colliders.playerMonsterCollision.collided) ||
-      (this.#Colliders.playerMonsterBulletsCollision && this.#Colliders.playerMonsterBulletsCollision.collided)) {
-      this.#state = "game_over";
-      this.#showTextCenter("game Over !", '#ff0000');
-
-    }
-  }
-  #gameWinhandle() {
-    if (this.#score >= MAX_SCORE && this.#monsterLife == 0) {
-      this.#state = "you_Win";
-      this.#showTextCenter('You Win !\n your score is ' + this.#score, '#fff');
-
-    }
-  }
-  #moveMonster() {
-
-    /*
-        if (this.#monster.body.blocked.left) {
-          this.#monster.setVelocityX(velocityX);
-        }
-        if (this.#monster.body.blocked.right) {
-          this.#monster.setVelocityX(-velocityX);
-        } if (this.#monster.body.blocked.up) {
-          this.#monster.setVelocityY(velocityY);
-        } if (this.#monster.body.blocked.down) {
-          this.#monster.setVelocityY(-velocityY);
-        }
-    */
-
-    const [width, height] = getWindowWidthAndHeight();
-    if (!this.#showMonstercheck) {
-      return;
-    }
-
-    var velocityX = 0;
-    var velocityY = 0;
-
-    // Das Monster bewegt sich horizontal, wie player
-    if (this.#player.x > this.#monster.x) {
-      velocityX = 100;
-    } else if (this.#player.x < this.#monster.x) {
-      velocityX = -100;
-    }
-
-    // Wenn der Spieler nach oben geht, folgt das Monster, solange es nicht die Mitte des Bildschirms überschreitet
-    if (this.#monster.body.blocked.up) {
-      this.#monster.setVelocityY(150);
-
-    } else if (this.#monster.y >= height / 3) {
-      // Wenn das Monster die Mitte des Bildschirms überschreitet, geht es nach unten
-      this.#monster.setVelocityY(-100);
-
-    } else if (this.#player.y <= this.#monster.y) {
-      // Das Monster bewegt sich nicht vertikal, wenn der Spieler nach unten geht
-      this.#monster.setVelocityY(0);
-    }
-
-    this.#monster.setVelocityX(velocityX);
-
   }
 
   #bulletEnemyCollision(bullet, enemy) {
@@ -619,7 +530,6 @@ export class MainScene extends Phaser.Scene {
     }
   }
 
-
   #bulletEnemyplayerCollision(bulletEnemy, player) {
     this.#sounds.explosion.play();
     bulletEnemy.disableBody(true, false);
@@ -651,6 +561,100 @@ export class MainScene extends Phaser.Scene {
     this.#createBublleRakete();
     this.#addColliders();
     this.#raketeCount = +1;
+  }
+
+
+
+
+  // ende game handle
+  #endGame() {
+    this.#gameOverhandle();
+    this.#gameWinhandle();
+    if (this.#state === 'game_over' || this.#state === "you_Win") {
+      this.physics.pause();
+
+      if (this.#events.createEnemyEvent) {
+        this.#events.createEnemyEvent.remove();
+      }
+
+      if (this.#events.shootBulletEvent) {
+        this.#events.shootBulletEvent.remove();
+      }
+      if (this.#events.createLuminaryEvent) {
+        this.#events.createLuminaryEvent.remove();
+      }
+
+      setTimeout(() => {
+        this.scene.switch("gameEndeScene");
+      }, 4000);
+    }
+
+
+
+  }
+  #gameOverhandle() {
+    if ((this.#Colliders.playerEnemiescollision && this.#Colliders.playerEnemiescollision.collided) ||
+      (this.#Colliders.playerEnemiesBulletsCollision && this.#Colliders.playerEnemiesBulletsCollision.collided) ||
+      (this.#Colliders.playerMonsterCollision && this.#Colliders.playerMonsterCollision.collided) ||
+      (this.#Colliders.playerMonsterBulletsCollision && this.#Colliders.playerMonsterBulletsCollision.collided)) {
+      this.#state = "game_over";
+      this.#showTextCenter("game Over !", '#ff0000');
+
+    }
+  }
+  #gameWinhandle() {
+    if (this.#score >= MAX_SCORE && this.#monsterLife == 0) {
+      this.#state = "you_Win";
+      this.#showTextCenter('You Win !\n your score is ' + this.#score, '#fff');
+
+    }
+  }
+
+  #moveMonster() {
+
+    /*
+        if (this.#monster.body.blocked.left) {
+          this.#monster.setVelocityX(velocityX);
+        }
+        if (this.#monster.body.blocked.right) {
+          this.#monster.setVelocityX(-velocityX);
+        } if (this.#monster.body.blocked.up) {
+          this.#monster.setVelocityY(velocityY);
+        } if (this.#monster.body.blocked.down) {
+          this.#monster.setVelocityY(-velocityY);
+        }
+    */
+
+    const [width, height] = getWindowWidthAndHeight();
+    if (!this.#showMonstercheck) {
+      return;
+    }
+
+    var velocityX = 0;
+    var velocityY = 0;
+
+    // Das Monster bewegt sich horizontal, wie player
+    if (this.#player.x > this.#monster.x) {
+      velocityX = 100;
+    } else if (this.#player.x < this.#monster.x) {
+      velocityX = -100;
+    }
+
+    // Wenn der Spieler nach oben geht, folgt das Monster, solange es nicht die Mitte des Bildschirms überschreitet
+    if (this.#monster.body.blocked.up) {
+      this.#monster.setVelocityY(150);
+
+    } else if (this.#monster.y >= height / 3) {
+      // Wenn das Monster die Mitte des Bildschirms überschreitet, geht es nach unten
+      this.#monster.setVelocityY(-100);
+
+    } else if (this.#player.y <= this.#monster.y) {
+      // Das Monster bewegt sich nicht vertikal, wenn der Spieler nach unten geht
+      this.#monster.setVelocityY(0);
+    }
+
+    this.#monster.setVelocityX(velocityX);
+
   }
 
   #createBubbleUpdatePlayer() {
