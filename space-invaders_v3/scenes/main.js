@@ -741,7 +741,7 @@ export class MainScene extends Phaser.Scene {
       return;
 
     } else if (this.#showMonstercheck && this.#level == MAX_LEVEL) {
-      if ( this.#score - (MAX_SCORE - LEVEL_SCORE) == 0 || this.#score - (MAX_SCORE - (LEVEL_SCORE / 2)) == 0) {
+      if (this.#score - (MAX_SCORE - LEVEL_SCORE) == 0 || this.#score - (MAX_SCORE - (LEVEL_SCORE / 2)) == 0) {
 
 
         // Zufällige Koordinaten generieren
