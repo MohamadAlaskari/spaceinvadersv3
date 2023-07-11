@@ -277,7 +277,7 @@ export class MainScene extends Phaser.Scene {
     });
 
     this.#events.shootBulletEvent = this.time.addEvent({
-      delay: 8000 / this.#level,
+      delay: 2000 / this.#level,
       callback: this.#shootBulletFromEnemy,
       callbackScope: this,
       loop: true
@@ -386,7 +386,7 @@ export class MainScene extends Phaser.Scene {
       .setVelocityY(speed)
       .setVelocityX(speed * direction)
       .setAngularVelocity(Phaser.Math.Between(-200, 200));
-
+    this.#background.luminaries.setDepth(-1);
 
   }
   #moveMeteors() {
@@ -741,7 +741,7 @@ export class MainScene extends Phaser.Scene {
       return;
 
     } else if (this.#showMonstercheck) {
-      if (this.#score == 46 || this.#score == 52 ) {
+      if (this.#score == 46 || this.#score == 52) {
 
 
         // Zufällige Koordinaten generieren

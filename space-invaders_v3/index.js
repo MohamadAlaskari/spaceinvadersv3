@@ -6,6 +6,16 @@ const start_game = document.getElementById('start-game')
 
 
 
+window.onload = function () {
+    var introVideo = document.getElementById('intro-video');
+
+    introVideo.onended = function () {
+        introVideo.style.display = 'none';  
+        document.getElementById('main').style.display = 'block';  
+        document.querySelector('.gameMenue').style.display = 'block'; 
+    };
+};
+
 
 
 gamebtn.addEventListener('click', (e) => {

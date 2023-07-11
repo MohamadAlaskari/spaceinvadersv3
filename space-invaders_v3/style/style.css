@@ -274,6 +274,14 @@ button:focus,
 }
 
 /* Section Title */
+.header {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
 
 .section-title {
   margin-bottom: 15px;
@@ -323,7 +331,6 @@ button:focus,
 
 .left-col-block.blocks.post .vid-bg {
   position: absolute;
-  /* Damit das Video absolut positioniert wird und über den Inhalt des Div gelegt wird */
   top: 0;
   left: 0;
   min-width: 100%;
@@ -331,7 +338,6 @@ button:focus,
   width: auto;
   height: auto;
   z-index: -1;
-  /* Damit das Video hinter dem Inhalt des Div liegt */
 }
 
 
@@ -400,7 +406,12 @@ a.portfolio-item .portfolio-info h3 {
   line-height: 1em;
   text-transform: uppercase;
 }
-
+.move-up{
+  color: #efefef;
+}
+.title-links{
+  color: #efefef;
+}
 a.portfolio-item .portfolio-info small {
   color: var(--white);
 }
@@ -673,10 +684,15 @@ span.italic {
   text-transform: uppercase;
 }
 
-/* Hier fehlen einige CSS-Regeln für die h1 bis h6, p, ul, ol, li und weitere Tags innerhalb der .post Klasse. */
-/* Ich habe sie ausgelassen, um die Antwort kürzer zu halten. */
+
 
 @media (max-width: 600px) {
+  .move-up{
+    color: #3d3d50;
+  }
+  .title-links{
+    color: #3d3d50;
+  }
   .footer {
     padding: 20px 20px;
 

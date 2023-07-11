@@ -52,6 +52,18 @@ body {
 	color: deepskyblue;
 }
 
+/* Fügen Sie diese Regel zu Ihren vorhandenen CSS-Regeln hinzu. */
+
+#intro-video {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	z-index: 2;
+  }
+
 .vid-bg {
 	position: absolute;
 	right: 0;
@@ -163,7 +175,7 @@ h1 {
 
 #start-game:hover {
 	transform: translate(-50%, -50%) scale(1.3);
-	
+
 
 }
 
