@@ -6,6 +6,7 @@ export class Enemy {
         const enemy = enemies.create(Phaser.Math.Between(50, getWindowWidthAndHeight()[0] - 50), -20, enemyType);
         enemy.setScale(scale);
         enemy.setVelocityY(velocity);
+        return enemy
         
     }
 }
