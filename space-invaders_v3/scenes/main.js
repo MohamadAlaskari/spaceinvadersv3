@@ -134,7 +134,13 @@ export class MainScene extends Phaser.Scene {
     this.#showMonster();
     this.#moveMonster();
     this.#endGame();
-
+    const [_, height] = getWindowWidthAndHeight();
+    this.#enemies.getChildren().filter(e => e.active !== true).forEach(e => {
+      this.#enemies.remove(e)
+    })
+    this.#bullets.getChildren().filter(e => e.active !== true || e.y > height).forEach(e => {
+      this.#bullets.remove(e)
+    })
 
     this.#handleCursors(this.#player, 450 + (this.#level - 1) * 50);
     this.#show_BubbleUpgradePlayer();
@@ -408,7 +414,6 @@ export class MainScene extends Phaser.Scene {
   #shootRocket() {
     this.#rocket = Rocket.create(this.#player, this.#monster, this.#rockets, this.#player.x, this.#player.y, 0.3, 1000, 'rocket')
     this.#sounds.shootRakete.play();
-
   }
 
   #createExplosionAnimations() {
@@ -427,12 +432,12 @@ export class MainScene extends Phaser.Scene {
   #playerEnemyCollision(player, enemy) {
     this.#sounds.explosion.play();
     player.disableBody(true, false);
-    enemy.disableBody(true, true);
     player.setTint(0xff0000);
     enemy.setTint(0xf11115);
     const explosion = this.add.sprite(player.x, player.y, "explosion");
     explosion.setScale(1);
     explosion.play("explode");
+    enemy.disableBody(true, true);
   }
   #playerMonsterCollision(player, monster) {
     if (!this.#showMonstercheck) {
@@ -568,9 +573,6 @@ export class MainScene extends Phaser.Scene {
 
   }
 
-
-
-
   // ende game handle
   #endGame() {
     this.#gameOverhandle();
@@ -627,9 +629,9 @@ export class MainScene extends Phaser.Scene {
 
     // Das Monster bewegt sich horizontal, wie player
     if (this.#player.x > this.#monster.x) {
-      velocityX = 150;
+      velocityX = 120;
     } else if (this.#player.x < this.#monster.x) {
-      velocityX = -150;
+      velocityX = -120;
     }
 
     // Wenn der Spieler nach oben geht, folgt das Monster, solange es nicht die Mitte des Bildschirms überschreitet
@@ -695,8 +697,7 @@ export class MainScene extends Phaser.Scene {
         this.#player.x - this.#monster.x,
         this.#player.y - this.#monster.y
       ).normalize();
-      monsterBullet.setVelocity(direction.x * 1000, direction.y * 1000);
-
+      monsterBullet.setVelocity(direction.x * 800, direction.y * 800);
 
     }
 
@@ -736,13 +737,11 @@ export class MainScene extends Phaser.Scene {
 
   }
   #show_BubbleRocket() {
-    // Überprüfen, ob das Bubble-Update-Player-Objekt bereits sichtbar ist
     if (!this.#showMonstercheck || this.#bubbleRocket.visible) {
       return;
 
     } else if (this.#showMonstercheck) {
       if (this.#score == 46 || this.#score == 52) {
-
 
         // Zufällige Koordinaten generieren
         const [width, height] = getWindowWidthAndHeight();

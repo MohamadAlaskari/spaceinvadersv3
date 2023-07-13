@@ -311,7 +311,7 @@ button:focus,
   transition: all 0.3s ease 0s;
   outline: none;
 }
-
+.link{color: #888;}
 .intro a:active,
 .intro a:focus {
   text-decoration: none;
@@ -331,7 +331,7 @@ button:focus,
 
 .left-col-block.blocks.post .vid-bg {
   position: absolute;
-  top: 0;
+  top: -200px;
   left: 0;
   min-width: 100%;
   min-height: 100vh;
@@ -671,7 +671,7 @@ span.italic {
   outline: none;
 }
 
-.post a:hover,
+.post a:hover:not(btn),
 .post a:focus {
   text-decoration: none;
   color: var(--white);
@@ -701,4 +701,31 @@ span.italic {
       text-align: center;
     }
   }
+}
+
+
+.btns {
+	display: flex;
+	gap: 14px;
+	align-items: center;
+	justify-content: center;
+}
+
+.btns .btn {
+	padding: 10px 20px;
+	background-color: transparent;
+	color: rgba(255, 255, 255, 0.6);
+	border: 2px solid rgba(255, 255, 255, 0.6);
+	border-radius: 4px;
+	font-size: 3vmin;
+	background: rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+	transition: all .2s ease-in;
+}
+
+.btns .btn:hover {
+	color: #ffffff;
+	border: 2px solid #ffffff;
+
+
 }

@@ -31,13 +31,13 @@ export class GameEndeScene extends Phaser.Scene {
 
 
         this.#homeButton = this.add.text(CENTER_WIDTH - 40, CENTER_HEIGHT + 100, 'Home', {
-            fontSize: '3vmin',
+            fontSize: '4vmin',
             fontFamily: 'Tahoma',
             fill: '#fff',
         }).setOrigin(0.5);
 
         this.#replayButton = this.add.text(CENTER_WIDTH - 40, CENTER_HEIGHT + 160, 'Replay', {
-            fontSize: '3vmin',
+            fontSize: '4vmin',
             fontFamily: 'Tahoma',
             fill: '#fff',
         }).setOrigin(0.5);
