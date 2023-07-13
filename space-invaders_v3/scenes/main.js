@@ -431,35 +431,35 @@ export class MainScene extends Phaser.Scene {
   //colissions
   #playerEnemyCollision(player, enemy) {
     this.#sounds.explosion.play();
-    player.disableBody(true, false);
-    player.setTint(0xff0000);
-    enemy.setTint(0xf11115);
     const explosion = this.add.sprite(player.x, player.y, "explosion");
-    explosion.setScale(1);
     explosion.play("explode");
+    player.setTint(0xff0000);
+    player.disableBody(true, false);
+    explosion.setScale(1);
+    enemy.setTint(0xf11115);
     enemy.disableBody(true, true);
   }
   #playerMonsterCollision(player, monster) {
     if (!this.#showMonstercheck) {
       return
     }
-    this.#sounds.explosion.play();
-    player.disableBody(true, false);
-    monster.disableBody(true, true);
-    player.setTint(0xff0000);
-    monster.setTint(0xf11115);
     const explosion = this.add.sprite(player.x, player.y, "explosion");
     explosion.setScale(1.4);
     explosion.play("explode");
+    this.#sounds.explosion.play();
+    player.setTint(0xff0000);
+    player.disableBody(true, false);
+    monster.setTint(0xf11115);
+    monster.disableBody(true, true);
   }
   #bulletEnemyCollision(bullet, enemy) {
 
-    bullet.disableBody(true, true);
-    enemy.disableBody(true, true);
     this.#sounds.enemyDeath.play();
     const explosion = this.add.sprite(enemy.x, enemy.y, "explosion");
     explosion.setScale(0.5);
     explosion.play("explode");
+    bullet.disableBody(true, true);
+    enemy.disableBody(true, true);
     this.#increaseScore();
   }
   #bulletRaketeMonsterCollision(rocket, monster) {
@@ -470,10 +470,10 @@ export class MainScene extends Phaser.Scene {
     this.#rocket.disableBody(true, true);
 
     if (this.#monsterLife == 0) {
-      this.#monster.disableBody(true, true)
-      this.#sounds.monsterExplosion.play();
       this.#sounds.monsterHit.play();
       this.#monster.setTint(0xff0000);
+      this.#sounds.monsterExplosion.play();
+      this.#monster.disableBody(true, true)
       console.log("monsterLife: ", this.#monsterLife);
     }
   }
@@ -501,7 +501,7 @@ export class MainScene extends Phaser.Scene {
     }
   }
 
-  
+
   #bulletMonsterCollision(bullet, monster) {
     if (!this.#showMonstercheck) {
       return
@@ -541,12 +541,13 @@ export class MainScene extends Phaser.Scene {
 
   #bulletEnemyplayerCollision(bulletEnemy, player) {
     this.#sounds.explosion.play();
-    bulletEnemy.disableBody(true, false);
-    player.disableBody(true, true);
     bulletEnemy.setTint(0xff0000);
+    player.setTint(0xff0000);
     const explosion = this.add.sprite(player.x, player.y, "explosion");
     explosion.setScale(0.8);
     explosion.play("explode");
+    bulletEnemy.disableBody(true, false);
+    player.disableBody(true, true);
     // this.#endGame();
   }
 
