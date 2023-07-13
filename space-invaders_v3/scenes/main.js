@@ -501,6 +501,7 @@ export class MainScene extends Phaser.Scene {
     }
   }
 
+  
   #bulletMonsterCollision(bullet, monster) {
     if (!this.#showMonstercheck) {
       return
