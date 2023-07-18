@@ -10,13 +10,16 @@ const CENTER_HEIGHT = height / 2;
 export class GameEndeScene extends Phaser.Scene {
 
     #homeButton;
-    #replayButton;
+    #Titlefontsize;
+    #Homefontsize;
+
 
     constructor() {
         super({ key: "gameEndeScene" })
     }
     init() {
         this.cameras.main.setBackgroundColor('#ff000000')
+        this.#fontsizeResponsive();
     }
     preload() {
 
@@ -24,29 +27,22 @@ export class GameEndeScene extends Phaser.Scene {
     create() {
 
         this.add.text(CENTER_WIDTH, CENTER_HEIGHT - 40, 'End of Game', {
-            fontSize: '18vmin',
+            fontSize: this.#Titlefontsize,
             fontFamily: 'Georgia',
             fill: '#fff',
         }).setOrigin(0.5);
 
 
-        this.#homeButton = this.add.text(CENTER_WIDTH - 40, CENTER_HEIGHT + 100, 'Home', {
-            fontSize: '4vmin',
-            fontFamily: 'Tahoma',
-            fill: '#fff',
-        }).setOrigin(0.5);
-
-        this.#replayButton = this.add.text(CENTER_WIDTH - 40, CENTER_HEIGHT + 160, 'Replay', {
-            fontSize: '4vmin',
+        this.#homeButton = this.add.text(CENTER_WIDTH - 20, CENTER_HEIGHT + 100, 'Home', {
+            fontSize: this.#Homefontsize,
             fontFamily: 'Tahoma',
             fill: '#fff',
         }).setOrigin(0.5);
 
 
 
-        // Button-Callbacks hinzufügen
-        this.#replayButton.setInteractive({ useHandCursor: true });
-        this.#replayButton.on('pointerdown', () => this.scene.start("splashScene"),/* game()*/);
+
+
 
         this.#homeButton.setInteractive({ useHandCursor: true });
         this.#homeButton.on('pointerdown', () => location.reload());
@@ -54,4 +50,11 @@ export class GameEndeScene extends Phaser.Scene {
     update(time, delta) {
 
     };
+
+
+    #fontsizeResponsive() {
+        console.log(width)
+        width > 500 ? this.#Titlefontsize = "18vmin" : this.#Titlefontsize = "10vmin";
+        width > 500 ? this.#Homefontsize = "5vmin" : this.#Homefontsize = "4vmin";
+    }
 }

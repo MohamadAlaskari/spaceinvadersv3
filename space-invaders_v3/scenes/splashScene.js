@@ -28,7 +28,7 @@ export class SplashScene extends Phaser.Scene {
 
         // Text hinzufügen
         this.add.text(CENTER_WIDTH, CENTER_HEIGHT, 'Spaceinvaders', {
-            fontSize: '16vmin',
+            fontSize: '12vmin',
             fontFamily: 'Georgia',
             fill: '#fff',
         }).setOrigin(0.5);
@@ -54,7 +54,6 @@ export class SplashScene extends Phaser.Scene {
 
 
     #restart() {
-        // Warte 5 Sekunden, dann wechsle zur MainScene
         this.time.addEvent({
             delay: 8600, // 2000 Millisekunden = 2 Sekunden
             callback: () => { this.scene.switch("mainScene"), this.#shutdown() },
