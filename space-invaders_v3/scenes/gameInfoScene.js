@@ -8,7 +8,7 @@ const CENTER_HEIGHT = height / 2;
 
 export class GameInfoScene extends Phaser.Scene {
     #infoText;
-    #homeButton;
+    #playButton;
     #Titlefontsize;
     #Infofontsize;
     #bulletImage;
@@ -32,7 +32,7 @@ export class GameInfoScene extends Phaser.Scene {
     create() {
         this.#createTitle();
         this.#createInfoText();
-        this.#createHomeButton();
+        this.#createPlayButton();
         this.#playBackgroundSound();
     }
 
@@ -73,15 +73,15 @@ export class GameInfoScene extends Phaser.Scene {
     }
 
 
-    #createHomeButton() {
-        this.#homeButton = this.add.text(CENTER_WIDTH, CENTER_HEIGHT + 270, "| Play |", {
+    #createPlayButton() {
+        this.#playButton = this.add.text(CENTER_WIDTH, CENTER_HEIGHT + 270, "| Play |", {
             fontSize: this.#Titlefontsize,
             fontFamily: "Impact",
             fill: "#ff0000",
         }).setOrigin(0.5);
 
-        this.#homeButton.setInteractive({ useHandCursor: true });
-        this.#homeButton.on("pointerdown", () => {
+        this.#playButton.setInteractive({ useHandCursor: true });
+        this.#playButton.on("pointerdown", () => {
             this.scene.switch("splashScene");
             this.#shutdown();
         });
