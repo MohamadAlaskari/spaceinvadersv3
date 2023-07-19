@@ -1,5 +1,5 @@
 import * as Phaser from "phaser";
-import { ENEMIES, PLAYERS, BULLETS, BUBBLES_UPDATE_PLAYER, LEVEL_SCORE, MAX_SCORE, MAX_LEVEL, MONSTER_LIFE_TIME, MONSTER_SHOW } from "../utils/constants";
+import { ENEMIES, PLAYERS, BULLETS, BUBBLES_UPDATE_PLAYER, LEVEL_SCORE, MAX_SCORE, MAX_LEVEL, MONSTER_LIFE_TIME, MONSTER_SHOW, SHOWROCKET_IN_SCORE_1, SHOWROCKET_IN_SCORE_2, NUR_BY_DEAD_WIN } from "../utils/constants";
 import { Ship } from "../module/Ship";
 import { Enemy } from "../module/Enemy";
 import { Bullet } from "../module/Bullet";
@@ -501,7 +501,6 @@ export class MainScene extends Phaser.Scene {
     }
   }
 
-
   #bulletMonsterCollision(bullet, monster) {
     if (!this.#showMonstercheck) {
       return
@@ -612,11 +611,19 @@ export class MainScene extends Phaser.Scene {
     }
   }
   #gameWinhandle() {
-    if (this.#score >= MAX_SCORE && this.#monsterLife == 0) {
-      this.#state = "you_Win";
-      this.#showTextCenter('You Win !\n your score is ' + this.#score, '#fff');
+    if (NUR_BY_DEAD_WIN) {
+      if ( this.#monsterLife == 0) {
+        this.#state = "you_Win";
+        this.#showTextCenter('You Win !\n your score is ' + this.#score, '#fff');
+      }
+    } else {
 
+      if (this.#score >= MAX_SCORE && this.#monsterLife == 0) {
+        this.#state = "you_Win";
+        this.#showTextCenter('You Win !\n your score is ' + this.#score, '#fff');
+      }
     }
+
   }
 
   #moveMonster() {
@@ -743,7 +750,7 @@ export class MainScene extends Phaser.Scene {
       return;
 
     } else if (this.#showMonstercheck) {
-      if (this.#score == 46 || this.#score == 52) {
+      if (this.#score == SHOWROCKET_IN_SCORE_1 || this.#score == SHOWROCKET_IN_SCORE_2) {
 
         // Zufällige Koordinaten generieren
         const [width, height] = getWindowWidthAndHeight();

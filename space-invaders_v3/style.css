@@ -55,6 +55,7 @@ body {
 /* Fügen Sie diese Regel zu Ihren vorhandenen CSS-Regeln hinzu. */
 
 #intro-video {
+	
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -62,14 +63,20 @@ body {
 	height: 100%;
 	object-fit: cover;
 	z-index: 2;
+	transition: all 2s ease-out;
 }
 
 .vid-bg {
+	display: none;
 	position: fixed;
 	right: 0;
 	bottom: 0;
-	min-height: 100%;
 	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	z-index: -100;
+	background-size: cover;
 
 
 }
@@ -79,6 +86,7 @@ h1 {
 }
 
 .main {
+	display: none;
 	position: fixed;
 	top: 50vh;
 	left: 50vw;
