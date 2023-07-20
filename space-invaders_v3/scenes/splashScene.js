@@ -75,7 +75,7 @@ export class SplashScene extends Phaser.Scene {
 
     #createShips() {
         if (width < 600) {
-            this.#ships.ship1 = this.add.image(CENTER_WIDTH, CENTER_HEIGHT - 190, 'player-2').setScale(1.5);
+            this.#ships.ship1 = this.add.image(CENTER_WIDTH, CENTER_HEIGHT - 190, 'player-2').setScale(0.8);
             this.#arr.push(this.#ships.ship1);
         } else {
             this.#ships.ship1 = this.add.image(CENTER_WIDTH, CENTER_HEIGHT - 190, 'player-2').setScale(1.5);
