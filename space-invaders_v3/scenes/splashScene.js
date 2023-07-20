@@ -85,9 +85,6 @@ export class SplashScene extends Phaser.Scene {
             this.#arr.push(this.#ships.ship2)
             this.#arr.push(this.#ships.ship3)
 
-
-
-
         }
     }
 }
