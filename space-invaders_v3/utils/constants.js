@@ -4,7 +4,8 @@ export const LEVEL_SCORE = 15;
 export const MAX_SCORE = LEVEL_SCORE * MAX_LEVEL;
 export const MONSTER_LIFE_TIME = 10;
 export const MONSTER_SHOW = MAX_LEVEL;
-//nur bei monster tot gewinnen un abhängig von maxscore
+
+//nur bei monster tot gewinnen und  unabhängig von maxscore
 export const NUR_BY_DEAD_WIN = false;
 
 // du kannst nur zwei rocket anzeigen und wenn Monszter ist sichbar

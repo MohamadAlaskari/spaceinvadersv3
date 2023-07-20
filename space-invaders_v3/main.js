@@ -3,7 +3,7 @@ import { config } from './utils/config';
 import { SplashScene } from './scenes/splashScene';
 import { GameInfoScene } from './scenes/gameInfoScene';
 
-import { MainScene } from './scenes/main';
+import { GameScene } from './scenes/gameScene';
 import { GameEndeScene } from './scenes/gameEndeScene';
 
 
@@ -21,7 +21,7 @@ export function game() {
   var game = new Game(config);
   game.scene.add('splashScene', SplashScene);
   game.scene.add('gameInfoScene', GameInfoScene);
-  game.scene.add('mainScene', MainScene);
+  game.scene.add('gameScene', GameScene);
   game.scene.add('gameEndeScene', GameEndeScene);
 
   //game start

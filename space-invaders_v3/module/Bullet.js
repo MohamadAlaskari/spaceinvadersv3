@@ -1,5 +1,4 @@
 import * as Phaser from 'phaser';
-
 export class Bullet {
     static create(bullets, x, y, scale, velocity, bulletType) {
         const bullet = bullets.create(x, y, bulletType)
@@ -7,5 +6,4 @@ export class Bullet {
         bullet.setVelocityY(velocity);
         return bullet;
     }
-
 }

@@ -10,7 +10,7 @@ import { BubbleRocket } from "../module/BubbleRocket"
 
 
 import { getWindowWidthAndHeight } from "../utils/utils";
-export class MainScene extends Phaser.Scene {
+export class GameScene extends Phaser.Scene {
 
   #background = {
     stars: null,
@@ -64,7 +64,7 @@ export class MainScene extends Phaser.Scene {
 
   constructor() {
     super({
-      key: "mainScene",
+      key: "gameScene",
     });
 
 
@@ -210,13 +210,11 @@ export class MainScene extends Phaser.Scene {
     }
     if (Phaser.Input.Keyboard.JustDown(this.#spaceClick)) {
       this.#shootBullet();
-
       this.#sounds.shoot.play();
     }
     if (Phaser.Input.Keyboard.JustDown(this.#Rclick) && this.#rocketPlayerCounnt > 0) {
       this.#shootRocket();
       this.#rocketPlayerCounnt --
-      console.log("rocketPlayerCounnt:-=1 R", this.#rocketPlayerCounnt)
     }
   }
 
@@ -281,6 +279,7 @@ export class MainScene extends Phaser.Scene {
       callbackScope: this,
       loop: true
     });
+  
 
     this.#events.shootBulletEvent = this.time.addEvent({
       delay: 2000 / this.#level,
@@ -407,7 +406,7 @@ export class MainScene extends Phaser.Scene {
     }
   }
 
-  //player bullet/Rocket
+  //player bullet
   #shootBullet() {
     this.#bullet = Bullet.create(this.#bullets, this.#player.x, this.#player.y, 0.9, -1000, `bullet${Math.min(this.#UpgradebulletPlayer, 4)}`)
   }
@@ -574,7 +573,7 @@ export class MainScene extends Phaser.Scene {
 
   }
 
-  // ende game handle
+  // ende game 
   #endGame() {
     this.#gameOverhandle();
     this.#gameWinhandle();
