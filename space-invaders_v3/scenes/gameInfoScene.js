@@ -41,7 +41,7 @@ export class GameInfoScene extends Phaser.Scene {
     #fontsizeResponsive() {
         width > 500
             ? (this.#Titlefontsize = "10vmin")
-            : (this.#Titlefontsize = "8vmin");
+            : (this.#Titlefontsize = "10vmin");
         this.#Infofontsize = "3vmin";
     }
 
@@ -55,29 +55,27 @@ export class GameInfoScene extends Phaser.Scene {
     }
 
     #createInfoText() {
-        let rocketBubbleText = "";
-        if (this.scene.manager.getScenes(true).length === MONSTER_SHOW) {
-            rocketBubbleText = "- Collect the rocket bubble in the last level to upgrade the player's abilities with rockets\n";
-        }
+
         this.#infoText = this.add.text(
             CENTER_WIDTH,
             CENTER_HEIGHT,
-            `How to Win:\n- Achieve a score of ${MAX_SCORE} points and defeat the monster\n\nHow to Lose:\n- Collide with enemies or their bullets\n- Collide with the monster\n\nPlayer Controls:\n- Use the arrow keys or drag the player to move\n- Press the spacebar to shoot bullets\n- Press 'R' to shoot rockets (if available)\n\nLevel System:\n- There are a total of ${MAX_LEVEL} levels\n- Each level increases the difficulty and enemy spawn rate\n- Each level can be completed by reaching a score of at least ${LEVEL_SCORE}\n\nPlayer Upgrade:\n- Collect the bubbles to upgrade the player's abilities\n${rocketBubbleText}`,
+            `How to Win:\n- Achieve a score of ${MAX_SCORE} points and defeat the monster\n\nHow to Lose:\n- Collide with enemies or their bullets\n- Collide with the monster\n\nPlayer Controls:\n- Use the arrow keys or drag the player to move\n- Press the spacebar to shoot bullets\n- Press 'R' to shoot rockets (if available)\n\nLevel System:\n- There are a total of ${MAX_LEVEL} levels\n- Each level increases the difficulty and enemy spawn rate\n- Each level can be completed by reaching a score of at least ${LEVEL_SCORE}\n\nPlayer Upgrade:\n- Collect the bubbles to upgrade the player's abilities\n- Collect the rocket bubble in the last level ${MAX_LEVEL} to upgrade the player's abilities with rockets\n`,
             {
                 fontSize: this.#Infofontsize,
                 fontFamily: "Georgia",
                 fill: "#fff",
-                align: "center",
+                 align: "center",
             }
         ).setOrigin(0.5);
     }
 
 
     #createPlayButton() {
-        this.#playButton = this.add.text(CENTER_WIDTH, CENTER_HEIGHT + 270, "| Play |", {
+        this.#playButton = this.add.text(CENTER_WIDTH, height - 70, "| Play |", {
             fontSize: this.#Titlefontsize,
             fontFamily: "Impact",
             fill: "#ff0000",
+            align: "center",
         }).setOrigin(0.5);
 
         this.#playButton.setInteractive({ useHandCursor: true });
