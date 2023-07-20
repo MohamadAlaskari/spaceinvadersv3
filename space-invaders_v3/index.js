@@ -9,21 +9,7 @@ const start_game = document.getElementById('start-game')
 
 
 
-window.onload = function () {
-    var introVideo = document.getElementById('intro-video');
 
-    introVideo.onended = function () {
-        introVideo.style.opacity = 0;
-        setTimeout(function(){
-
-            introVideo.style.display = 'none';
-        },2000);
-     
-        vid_bg.style.display = 'block';
-        document.getElementById('main').style.display = 'block';
-        document.querySelector('.gameMenue').style.display = 'block';
-    };
-};
 
 
 
