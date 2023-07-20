@@ -1,11 +1,18 @@
 import * as Phaser from "phaser";
 import { getWindowWidthAndHeight } from "../utils/utils";
+import { PLAYERS } from './../utils/constants'
 
 const [width, height] = getWindowWidthAndHeight();
 const CENTER_WIDTH = width / 2;
 const CENTER_HEIGHT = height / 2;
 
 export class SplashScene extends Phaser.Scene {
+    #ships = {
+        ship1: null,
+        ship2: null,
+        ship3: null
+    }
+    #arr = []
     constructor() {
         super({ key: "splashScene" })
     }
@@ -14,9 +21,9 @@ export class SplashScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('ship1', 'assets/images/player/level1_player2.png');
-        this.load.image('ship2', 'assets/images/player/level2_player3.png');
-        this.load.image('ship3', 'assets/images/player/level2_player3.png');
+        PLAYERS.forEach((assetPath, idx) => {
+            this.load.image(`player-${idx + 1}`, assetPath);
+        });
 
         this.load.audio('backgroundMusic', 'assets/sounds/background1.mp3');
     };
@@ -34,12 +41,11 @@ export class SplashScene extends Phaser.Scene {
         }).setOrigin(0.5);
 
         // Flugzeuge hinzufügen
-        const ship1 = this.add.image(CENTER_WIDTH, CENTER_HEIGHT - 190, 'ship1').setScale(1.5);
-        const ship2 = this.add.image(width - 200, CENTER_HEIGHT, 'ship2');
-        const ship3 = this.add.image(200, CENTER_HEIGHT, 'ship3');
-        // Flugzeuge nach oben bewegen
+        this.#createShips()
+
+
         this.tweens.add({
-            targets: [ship1, ship2, ship3],
+            targets: this.#arr,
             y: '-=475',
             duration: 8500,
             ease: 'Linear'
@@ -67,4 +73,21 @@ export class SplashScene extends Phaser.Scene {
     }
 
 
+    #createShips() {
+        if (width < 600) {
+            this.#ships.ship1 = this.add.image(CENTER_WIDTH, CENTER_HEIGHT - 190, 'player-2').setScale(1.5);
+            this.#arr.add(this.#ships.ship1);
+        } else {
+            this.#ships.ship1 = this.add.image(CENTER_WIDTH, CENTER_HEIGHT - 190, 'player-2').setScale(1.5);
+            this.#ships.ship2 = this.add.image(width - 200, CENTER_HEIGHT, 'player-7');
+            this.#ships.ship3 = this.add.image(200, CENTER_HEIGHT, 'player-7');
+            this.#arr.add(this.#ships.ship1)
+            this.#arr.add(this.#ships.ship2)
+            this.#arr.add(this.#ships.ship3)
+
+
+
+
+        }
+    }
 }
