@@ -61,7 +61,7 @@ export class SplashScene extends Phaser.Scene {
 
     #restart() {
         this.time.addEvent({
-            delay: 8600, // 2000 Millisekunden = 2 Sekunden
+            delay: 8600, 
             callback: () => { this.scene.switch("gameScene"), this.#shutdown() },
             loop: false // Dieses Event wird nur einmal ausgelöst
         });

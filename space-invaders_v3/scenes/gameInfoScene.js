@@ -11,8 +11,6 @@ export class GameInfoScene extends Phaser.Scene {
     #playButton;
     #Titlefontsize;
     #Infofontsize;
-    #bulletImage;
-    #rocketImage;
     #titleText;
     #backgroundSound;
 
@@ -26,7 +24,7 @@ export class GameInfoScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.audio("backgroundSound", "assets/sounds/background1.mp3");
+        this.load.audio("backgroundSound", "assets/sounds/background2.mp3");
     }
 
     create() {
@@ -58,13 +56,13 @@ export class GameInfoScene extends Phaser.Scene {
 
         this.#infoText = this.add.text(
             CENTER_WIDTH,
-            CENTER_HEIGHT-10,
+            CENTER_HEIGHT - 10,
             `How to Win:\n- Achieve a score of ${MAX_SCORE} points and defeat the monster\n\nHow to Lose:\n- Collide with enemies or their bullets\n- Collide with the monster\n\nPlayer Controls:\n- Use the arrow keys or drag the player to move\n- Press the spacebar to shoot bullets\n- Press 'R' to shoot rockets (if available)\n\nLevel System:\n- There are a total of ${MAX_LEVEL} levels\n- Each level increases the difficulty and enemy spawn rate\n- Each level can be completed by reaching a score of at least ${LEVEL_SCORE}\n\nPlayer Upgrade:\n- Collect the bubbles to upgrade the player's abilities\n- Collect the rocket bubble in the last level (${MAX_LEVEL}) to upgrade the player's abilities with rockets`,
             {
                 fontSize: this.#Infofontsize,
                 fontFamily: "Georgia",
                 fill: "#fff",
-                 align: "center",
+                align: "center",
             }
         ).setOrigin(0.5);
     }

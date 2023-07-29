@@ -127,14 +127,15 @@ export class GameScene extends Phaser.Scene {
     if (this.#state === 'game_over') {
       return;
     }
-    this.#increaseLevel();
     this.#background.stars.tilePositionY += this.#level
+    this.#increaseLevel();
     this.#moveMeteors();
 
     this.#showMonster();
     this.#moveMonster();
     this.#endGame();
     const [_, height] = getWindowWidthAndHeight();
+    
     this.#enemies.getChildren().filter(e => e.active !== true).forEach(e => {
       this.#enemies.remove(e)
     })
@@ -273,17 +274,16 @@ export class GameScene extends Phaser.Scene {
     this.#monsterLebenText.visible = false;
   }
   #createEvents() {
-    this.#events.createEnemyEvent = this.time.addEvent({
-      delay: 2000 / this.#level,
-      callback: this.#createEnemy,
-      callbackScope: this,
-      loop: true
-    });
-  
-
     this.#events.shootBulletEvent = this.time.addEvent({
       delay: 2000 / this.#level,
       callback: this.#shootBulletFromEnemy,
+      callbackScope: this,
+      loop: true
+    });
+
+    this.#events.createEnemyEvent = this.time.addEvent({
+      delay: 2000 / this.#level,
+      callback: this.#createEnemy,
       callbackScope: this,
       loop: true
     });
@@ -295,6 +295,7 @@ export class GameScene extends Phaser.Scene {
       loop: true
     });
   }
+
   #addColliders() {
     this.#Colliders.playerEnemiescollision = this.physics.add.collider(
       this.#player,
@@ -375,7 +376,6 @@ export class GameScene extends Phaser.Scene {
     this.#background.meteors = this.physics.add
       .sprite(width, 0, 'meteors')
       .setScale(0.3);
-    // create meteors groupe
     this.#background.luminaries = this.physics.add.group();
   }
 
@@ -611,7 +611,7 @@ export class GameScene extends Phaser.Scene {
   }
   #gameWinhandle() {
     if (NUR_BY_DEAD_WIN) {
-      if ( this.#monsterLife == 0) {
+      if (this.#monsterLife == 0) {
         this.#state = "you_Win";
         this.#showTextCenter('You Win !\n your score is ' + this.#score, '#fff');
       }
@@ -622,7 +622,6 @@ export class GameScene extends Phaser.Scene {
         this.#showTextCenter('You Win !\n your score is ' + this.#score, '#fff');
       }
     }
-
   }
 
   #moveMonster() {
@@ -676,6 +675,7 @@ export class GameScene extends Phaser.Scene {
 
   #shootBulletFromEnemy() {
     const [_, height] = getWindowWidthAndHeight();
+
     const randomEnemy = Phaser.Utils.Array.GetRandom(
       this.#enemies.getChildren().filter(e => e.active == true && e.y <= height)
     );
@@ -700,12 +700,12 @@ export class GameScene extends Phaser.Scene {
         "bulletMonster"
       );
       monsterBullet.setScale(0.4);
-      this.#sounds.shoot.play();
       const direction = new Phaser.Math.Vector2(
         this.#player.x - this.#monster.x,
         this.#player.y - this.#monster.y
-      ).normalize();
-      monsterBullet.setVelocity(direction.x * 800, direction.y * 800);
+        ).normalize();
+        monsterBullet.setVelocity(direction.x * 800, direction.y * 800);
+        this.#sounds.shoot.play();
 
     }
 
@@ -800,7 +800,4 @@ export class GameScene extends Phaser.Scene {
       this.#monsterLebenText.setText(`Monster Leben: ${this.#monsterLife}`)
     }
   }
-
-
-
 }
