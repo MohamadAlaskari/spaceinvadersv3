@@ -135,7 +135,7 @@ export class GameScene extends Phaser.Scene {
     this.#moveMonster();
     this.#endGame();
     const [_, height] = getWindowWidthAndHeight();
-    
+
     this.#enemies.getChildren().filter(e => e.active !== true).forEach(e => {
       this.#enemies.remove(e)
     })
@@ -282,7 +282,7 @@ export class GameScene extends Phaser.Scene {
     });
 
     this.#events.createEnemyEvent = this.time.addEvent({
-      delay: 2000 / this.#level,
+      delay: 1600 / this.#level ,
       callback: this.#createEnemy,
       callbackScope: this,
       loop: true
@@ -703,9 +703,9 @@ export class GameScene extends Phaser.Scene {
       const direction = new Phaser.Math.Vector2(
         this.#player.x - this.#monster.x,
         this.#player.y - this.#monster.y
-        ).normalize();
-        monsterBullet.setVelocity(direction.x * 800, direction.y * 800);
-        this.#sounds.shoot.play();
+      ).normalize();
+      monsterBullet.setVelocity(direction.x * 800, direction.y * 800);
+      this.#sounds.shoot.play();
 
     }
 
