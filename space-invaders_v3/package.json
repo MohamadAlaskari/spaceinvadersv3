@@ -15,12 +15,12 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "devDependencies": {
-    "vite": "^4.5.1"
-  },
   "dependencies": {
     "gh-pages": "^5.0.0",
     "phaser": "^3.60.0"
+  },
+  "devDependencies": {
+    "vite": "^6.1.1"
   },
   "repository": {
     "type": "git",
