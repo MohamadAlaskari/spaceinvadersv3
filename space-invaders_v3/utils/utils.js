@@ -3,6 +3,9 @@ export const getWindowWidthAndHeight = () => [
   window.innerHeight || document.documentElement.clientHeight,
 ];
 
+
+
+
 /*
 const width = this.scale.width
 const height = this.scale.height
